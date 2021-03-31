@@ -116,5 +116,8 @@
       }
     }
   },
-  "defaultProject": "chatbuds"
+  "defaultProject": "chatbuds",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
