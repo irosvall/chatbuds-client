@@ -10,7 +10,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class ApiGatewayService {
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    withCredentials: true,
+  }
+
+  httpOptionsWithHeaders = {
+    withCredentials: true,
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
   }
 
   constructor (
@@ -21,7 +28,7 @@ export class ApiGatewayService {
    * Gets the welcome object from the API gateway
    */
   getWelcomeText(): Observable<{message?: String}> {
-    return this.http.get<object>(env.API_GATEWAY_URL)
+    return this.http.get<object>(env.API_GATEWAY_URL, this.httpOptions)
       .pipe(
         catchError(this.handleError<object>('getWelcomeText', { message: '' }))
       )
