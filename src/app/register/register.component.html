@@ -1,22 +1,47 @@
 <p>register works!</p>
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <label>
-    Email:
-    <input type="text" formControlName="email" required>
-  </label>
-  <label>
-    Username:
-    <input type="text" formControlName="username" required>
-  </label>
-  <label>
-    Password:
-    <input type="password" formControlName="password" required>
-  </label>
-  <label>
-    Repeat password:
-    <input type="password" formControlName="passwordRepeat" required>
-  </label>
+<form [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+  <label for="email">Email:</label>
+  <input id="email" type="email" formControlName="email" required>
 
+  <div *ngIf="email.invalid && (email.dirty || email.touched)">
+    <div *ngIf="email.errors.required">
+      An email is required.
+    </div>
+    <div *ngIf="email.errors.email">
+      The email isn't valid.
+    </div>
+  </div>
+  
+  <label for="username">Username:</label>
+  <input id="username" type="text" formControlName="username" required>
+
+  <div *ngIf="username.invalid && (username.dirty || username.touched)">
+    <div *ngIf="username.errors.required">
+      An username is required.
+    </div>
+  </div>
+  
+  <label for="password">Password:</label> 
+  <input id="password" type="password" formControlName="password" required>
+  
+  <div *ngIf="password.invalid && (password.dirty || password.touched)">
+    <div *ngIf="password.errors.required">
+      A password is required.
+    </div>
+  </div>
+
+  <label for="password-repeat">Repeat password:</label>
+  <input id="password-repeat" type="password" formControlName="passwordRepeat" required>
+
+  <div *ngIf="passwordRepeat.invalid && (passwordRepeat.dirty || passwordRepeat.touched)">
+    <div *ngIf="passwordRepeat.errors.required">
+      Password must be repeated.
+    </div>
+  </div>
+  <div *ngIf="registerForm.errors?.passwordEqual && (passwordRepeat.dirty || passwordRepeat.touched)">
+    The passwords doesn't match.
+  </div>
+  
   <button type="submit" [disabled]="!registerForm.valid">Submit</button>
 </form>
