@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 import { passwordEqualValidator } from '../validators/password-equal.directive';
 
 @Component({
@@ -10,15 +11,21 @@ import { passwordEqualValidator } from '../validators/password-equal.directive';
 export class RegisterComponent implements OnInit {
   registerForm : FormGroup
   
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.initForm()
   }
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.registerForm.value)
+  onSubmit(): void {
+    this.authService.register({
+      email: this.email.value, 
+      username: this.username.value, 
+      password: this.password.value
+    })
+      .subscribe()
   }
 
   /**
