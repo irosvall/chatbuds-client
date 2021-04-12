@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service'
 
 import { passwordEqualValidator } from '../../validators/password-equal.directive'
 import { alphanumericValidator } from '../../validators/alphanumeric.directive'
+import { emailValidator } from '../../validators/email.directive'
 
 @Component({
   selector: 'app-register',
@@ -36,7 +37,7 @@ export class RegisterComponent implements OnInit {
   private initForm() : void {
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required, alphanumericValidator]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, emailValidator]),
       password: new FormControl('', Validators.required),
       passwordRepeat: new FormControl('', Validators.required),
     }, { validators: passwordEqualValidator })

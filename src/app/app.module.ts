@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component'
 
 import { PasswordEqualValidatorDirective } from './validators/password-equal.directive'
 import { AlphanumericValidatorDirective } from './validators/alphanumeric.directive'
+import { EmailValidatorDirective } from './validators/email.directive'
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AlphanumericValidatorDirective } from './validators/alphanumeric.direct
     RegisterComponent,
     PasswordEqualValidatorDirective,
     AlphanumericValidatorDirective,
+    EmailValidatorDirective,
   ],
   imports: [
     BrowserModule,
