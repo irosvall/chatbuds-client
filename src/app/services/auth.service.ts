@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { environment as env } from '../../environments/environment'
 
 import { Observable, of } from 'rxjs';
@@ -15,15 +15,16 @@ import { ErrorHandlerService } from './error-handler.service';
  * Handles authorization requests towards the API Gateway.
  */
 export class AuthService {
-  httpOptions = {
+  httpOptions: Object = {
     withCredentials: true,
   }
 
-  httpOptionsWithHeaders = {
+  httpOptionsWithHeaders: Object = {
     withCredentials: true,
+    observe: 'response',
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-    })
+    }),
   }
 
   constructor (
@@ -54,15 +55,15 @@ export class AuthService {
     }
   }
   */
-/**
- * Registers an user.
- *
- * @param {object} data - The object to be inserted in the body of the request
- * @param {string} data.email - User's email.
- * @param {string} data.username - User's username.
- * @param {string} data.password - User's password.
- * @returns {Observable<any>}
- */
+  /**
+   * Registers an user.
+   *
+   * @param {object} data - The object to be inserted in the body of the request
+   * @param {string} data.email - User's email.
+   * @param {string} data.username - User's username.
+   * @param {string} data.password - User's password.
+   * @returns {Observable<any>}
+   */
   register(data: object): Observable<any> {
     return this.http.post<object>(`${env.API_GATEWAY_URL}auth/api/v1/register`, JSON.stringify(data), this.httpOptionsWithHeaders)
       .pipe(

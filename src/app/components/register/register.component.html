@@ -1,4 +1,4 @@
-<p>register works!</p>
+<h1>Register</h1>
 
 <form [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
   <label for="email">Email:</label>
@@ -63,3 +63,5 @@
   
   <button type="submit" [disabled]="!registerForm.valid">Submit</button>
 </form>
+
+<h2>{{message}}</h2>

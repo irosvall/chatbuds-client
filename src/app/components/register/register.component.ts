@@ -12,7 +12,10 @@ import { emailValidator } from '../../validators/email.directive'
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm : FormGroup
+  registerForm: FormGroup
+
+  // TODO: Make alert component
+  message: string
   
   constructor(
     private authService: AuthService
@@ -23,12 +26,22 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.register({
+    const subscription = this.authService.register({
       email: this.email.value, 
       username: this.username.value, 
       password: this.password.value
     })
-      .subscribe()
+      .subscribe((res) => {
+          if (res.status === 409) {
+            this.message = 'Username or email is already taken'
+          } else if (res.status === 201) {
+            this.message = 'User was created'
+          } else {
+            this.message = 'An error occured, try again'
+          }
+          subscription.unsubscribe()
+        })
+      
   }
 
   /**
