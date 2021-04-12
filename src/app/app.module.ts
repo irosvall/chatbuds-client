@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { HttpClientModule } from '@angular/common/http'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
-import { AppComponent } from './app.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { RegisterComponent } from './register/register.component';
+import { AppComponent } from './app.component'
+import { WelcomeComponent } from './components/welcome/welcome.component'
+import { RegisterComponent } from './components/register/register.component'
 
-import { PasswordEqualValidatorDirective } from './validators/password-equal.directive';
+import { PasswordEqualValidatorDirective } from './validators/password-equal.directive'
+import { AlphanumericValidatorDirective } from './validators/alphanumeric.directive'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { PasswordEqualValidatorDirective } from './validators/password-equal.dir
     WelcomeComponent,
     RegisterComponent,
     PasswordEqualValidatorDirective,
+    AlphanumericValidatorDirective,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
-import { passwordEqualValidator } from '../validators/password-equal.directive';
+import { Component, OnInit } from '@angular/core'
+import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { AuthService } from '../../services/auth.service'
+
+import { passwordEqualValidator } from '../../validators/password-equal.directive'
+import { alphanumericValidator } from '../../validators/alphanumeric.directive'
 
 @Component({
   selector: 'app-register',
@@ -33,7 +35,7 @@ export class RegisterComponent implements OnInit {
    */
   private initForm() : void {
     this.registerForm = new FormGroup({
-      username: new FormControl('', Validators.required),
+      username: new FormControl('', [Validators.required, alphanumericValidator]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
       passwordRepeat: new FormControl('', Validators.required),

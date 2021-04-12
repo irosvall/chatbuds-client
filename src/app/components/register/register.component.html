@@ -20,6 +20,9 @@
     <div *ngIf="username.errors.required">
       An username is required.
     </div>
+    <div *ngIf="username.errors.alphanumeric">
+      Only letters(a-z) and numbers can be used in the username.
+    </div>
   </div>
   
   <label for="password">Password:</label> 
