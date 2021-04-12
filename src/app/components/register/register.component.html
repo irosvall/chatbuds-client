@@ -8,6 +8,9 @@
     <div *ngIf="email.errors.required">
       An email is required.
     </div>
+    <div *ngIf="email.errors.maxlength">
+      The email can maximum be 320 characters.
+    </div>
     <div *ngIf="email.errors.email">
       The email isn't valid.
     </div>
@@ -20,6 +23,12 @@
     <div *ngIf="username.errors.required">
       An username is required.
     </div>
+    <div *ngIf="username.errors.minlength">
+      The username can minimum be 2 characters.
+    </div>
+    <div *ngIf="username.errors.maxlength">
+      The username can maximum be 16 characters.
+    </div>
     <div *ngIf="username.errors.alphanumeric">
       Only letters(a-z) and numbers can be used in the username.
     </div>
@@ -31,6 +40,12 @@
   <div *ngIf="password.invalid && (password.dirty || password.touched)">
     <div *ngIf="password.errors.required">
       A password is required.
+    </div>
+    <div *ngIf="password.errors.minlength">
+      The password can minimum be 10 characters.
+    </div>
+    <div *ngIf="password.errors.maxlength">
+      The password can maximum be 1000 characters.
     </div>
   </div>
 
