@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     })
       .subscribe((res) => {
           if (res.status === 409) {
-            this.message = 'Username or email is already taken'
+            this.message = res.error.message
           } else if (res.status === 201) {
             this.message = 'User was created'
           } else {
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
    */
   private initForm() : void {
     this.registerForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(16), alphanumericValidator]),
+      username: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(24), alphanumericValidator]),
       email: new FormControl('', [Validators.required, Validators.maxLength(320), emailValidator]),
       password: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]),
       passwordRepeat: new FormControl('', Validators.required),
