@@ -11,7 +11,8 @@ import { EmailValidatorDirective } from './validators/email.directive'
 import { AppComponent } from './app.component'
 import { WelcomeComponent } from './components/welcome/welcome.component'
 import { RegisterComponent } from './components/register/register.component'
-import { LoginComponent } from './components/login/login.component'
+import { LoginComponent } from './components/login/login.component';
+import { PageNotFoundComponent } from './components/errors/page-not-found/page-not-found.component'
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoginComponent } from './components/login/login.component'
     AlphanumericValidatorDirective,
     EmailValidatorDirective,
     LoginComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
