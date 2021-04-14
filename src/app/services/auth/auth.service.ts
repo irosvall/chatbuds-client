@@ -32,29 +32,21 @@ export class AuthService {
     private errorHandlerService: ErrorHandlerService,
   ) { }
 
-  /**
-   * Registers an user.
+ /**
+   * Logs in an user.
+   *
+   * @param {object} data - The object to be inserted in the body of the request
+   * @param {string} data.email - User's email.
+   * @param {string} data.password - User's password.
+   * @returns {Observable<any>}
    */
-  /*
-    async getWelcomeText(data: object): Promise<boolean> {
-    try {
-      let res = await fetch(`${env.API_GATEWAY_URL}/api/v1/register`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-
-      if (res.status !== 201) {
-        return false
-      }
-    } catch {
-      this.errorHandlerService.handleError<object>('getWelcomeText', { message: '' })
-    }
+  login(data: object): Observable<any> {
+    return this.http.post<object>(`${env.API_GATEWAY_URL}auth/api/v1/login`, JSON.stringify(data), this.httpOptionsWithHeaders)
+      .pipe(
+        catchError(this.errorHandlerService.handleError<object>('login'))
+      )
   }
-  */
+
   /**
    * Registers an user.
    *
