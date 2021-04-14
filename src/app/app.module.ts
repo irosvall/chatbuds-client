@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
+import { AppRoutingModule } from './app-routing/app-routing.module'
 
 import { PasswordEqualValidatorDirective } from './validators/password-equal.directive'
 import { AlphanumericValidatorDirective } from './validators/alphanumeric.directive'
@@ -27,6 +28,7 @@ import { LoginComponent } from './components/login/login.component'
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,6 +8,7 @@ import { ApiGatewayService } from '../../services/api-gateway/api-gateway.servic
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
+  title = 'ChatBuds';
   message: String = '';
 
   constructor(private apiGatewayService: ApiGatewayService) { }
