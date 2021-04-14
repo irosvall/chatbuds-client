@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { FormGroup, FormControl, Validators } from '@angular/forms'
-import { AuthService } from '../../services/auth.service'
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms'
+import { AuthService } from '../../services/auth/auth.service'
 
 import { passwordEqualValidator } from '../../validators/password-equal.directive'
 import { alphanumericValidator } from '../../validators/alphanumeric.directive'
@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
   /**
    * Intializes the registration form.
    */
-  private initForm() : void {
+  private initForm(): void {
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(24), alphanumericValidator]),
       email: new FormControl('', [Validators.required, Validators.maxLength(320), emailValidator]),
@@ -56,19 +56,19 @@ export class RegisterComponent implements OnInit {
     }, { validators: passwordEqualValidator })
   }
 
-  get username() {
+  get username(): AbstractControl {
     return this.registerForm.get('username')
   }
 
-  get email() {
+  get email(): AbstractControl {
     return this.registerForm.get('email')
   }
 
-  get password() {
+  get password(): AbstractControl {
     return this.registerForm.get('password')
   }
 
-  get passwordRepeat() {
+  get passwordRepeat(): AbstractControl {
     return this.registerForm.get('passwordRepeat')
   }
 }

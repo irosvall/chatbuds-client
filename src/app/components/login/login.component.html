@@ -1,0 +1,9 @@
+<h1>Login</h1>
+
+<form [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+  <label for="email">Email:</label>
+  <input id="email" type="email" formControlName="email" required>
+
+  <label for="password">Password:</label> 
+  <input id="password" type="password" formControlName="password" required>
+</form>
