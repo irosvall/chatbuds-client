@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   // TODO: Make alert component
   message: string
 
-  constructor(
+  constructor (
     private authService: AuthService,
   ) { }
 
@@ -22,26 +22,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const subscription = this.authService.login({
-      email: this.email.value,
-      password: this.password.value
-    })
+    const subscription = this.authService.login(this.loginForm.value)
       .subscribe((res) => {
-          if (res.status === 401) {
-            this.message = 'Email or password is wrong'
-          } else if (res.status === 200) {
-            this.message = 'You are now logged in'
-          } else {
-            this.message = 'An error occured, try again'
-          }
-          subscription.unsubscribe()
-        })
+        if (res.status === 200) {
+          this.message = 'You are now logged in'
+          this.loginForm.reset()
+        } else if (res.status === 401) {
+          this.message = 'Email or password is wrong'
+        } else {
+          this.message = 'An error occured, try again'
+        }
+        subscription.unsubscribe()
+      })
   }
 
   /**
    * Intializes the login form.
    */
-   private initForm(): void {
+  private initForm(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
