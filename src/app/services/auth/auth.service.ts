@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment as env } from '../../../environments/environment'
 
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { ErrorHandlerService } from './../error-handler/error-handler.service';
 
@@ -61,5 +61,22 @@ export class AuthService {
       .pipe(
         catchError(this.errorHandlerService.handleError<object>('register'))
       )
+  }
+
+  async isLoggedIn(): Promise<boolean> {
+    let res = await fetch(`${env.API_GATEWAY_URL}auth/api/v1/isLoggedIn`, {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({}),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+
+    if (res.status == 200) {
+      return true
+    } else {
+      return false
+    }
   }
 }
