@@ -19,6 +19,12 @@ body {
   background-color: #f4f1de;
 }
 
+router-outlet {
+  position: relative;
+  color: #000000;
+  padding: 10px 7px 20px 7px;
+}
+
 /*********** Font styles ************/
 h1, h2, h3 {
   color: #313349;
@@ -28,6 +34,15 @@ h1, h2, h3 {
 .center {
   margin-left: auto;
   margin-right: auto;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.filler {
+  display: block;
+  height: 4%;
 }
 
 .wrapper-round {
@@ -66,13 +81,13 @@ form input.ng-valid {
 }
 
 .validation-alert {
-  color: red;
+  color: #e04a48;
   font-size: 0.7em;
   position: absolute;
 }
 
 .validation-form-group-alert {
-  color: red;
+  color: #e04a48;
   font-size: 0.7em;
   position: absolute;
   top: 73px;
@@ -92,6 +107,11 @@ button:hover, button:active {
 }
 
 button:disabled {
-  background-color: #f2cc8f;
+  background-color: rgb(235, 206, 159);
   cursor: initial;
+}
+
+/*********** Link styles ************/
+a {
+  text-decoration: none;
 }

@@ -1,0 +1,46 @@
+header {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: 
+  "home-link auth-bar";
+  padding: 1em;
+  background-color: #81b29a;
+}
+
+#home-link {
+  width: max-content;
+  height: max-content;
+  grid-area: home-link;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+a.link, a:visited {
+  color: #551A8B;
+}
+
+a:hover, a:active {
+  color: #70439b;
+}
+
+#auth-bar {
+  grid-area: auth-bar;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline;
+  list-style: none;
+}
+
+nav li a {
+  font-size: 1.1em;
+  background-color: #81b29a;
+  margin-left: 0.5em;
+  display: inline-block;
+  padding: 0.5em 1em;
+}
