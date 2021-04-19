@@ -12,7 +12,8 @@ import { AppComponent } from './app.component'
 import { WelcomeComponent } from './components/welcome/welcome.component'
 import { RegisterComponent } from './components/register/register.component'
 import { LoginComponent } from './components/login/login.component';
-import { PageNotFoundComponent } from './components/errors/page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from './components/errors/page-not-found/page-not-found.component';
+import { HeaderComponent } from './components/header/header.component'
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PageNotFoundComponent } from './components/errors/page-not-found/page-n
     EmailValidatorDirective,
     LoginComponent,
     PageNotFoundComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
