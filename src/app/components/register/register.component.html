@@ -1,67 +1,77 @@
-<h1>Register</h1>
+<div class="wrapper-round center">
+  <h1>Register</h1>
 
-<form [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
-  <label for="email">Email:</label>
-  <input id="email" type="email" formControlName="email" required>
+  <form class="center" [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-section">
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email" required>
+    
+      <div class="validation-alert" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div *ngIf="email.errors.required">
+          An email is required.
+        </div>
+        <div *ngIf="email.errors.maxlength">
+          The email can maximum be 320 characters.
+        </div>
+        <div *ngIf="email.errors.email">
+          The email isn't valid.
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <label for="username">Username:</label>
+      <input id="username" type="text" formControlName="username" required>
+    
+      <div class="validation-alert" *ngIf="username.invalid && (username.dirty || username.touched)">
+        <div *ngIf="username.errors.required">
+          An username is required.
+        </div>
+        <div *ngIf="username.errors.minlength">
+          The username can minimum be 2 characters.
+        </div>
+        <div *ngIf="username.errors.maxlength">
+          The username can maximum be 24 characters.
+        </div>
+        <div *ngIf="username.errors.alphanumeric">
+          Only letters(a-z) and numbers can be used in the username.
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <label for="password">Password:</label> 
+      <input id="password" type="password" formControlName="password" required>
+      
+      <div class="validation-alert" *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div *ngIf="password.errors.required">
+          A password is required.
+        </div>
+        <div *ngIf="password.errors.minlength">
+          The password can minimum be 10 characters.
+        </div>
+        <div *ngIf="password.errors.maxlength">
+          The password can maximum be 1000 characters.
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <label for="password-repeat">Repeat password:</label>
+      <input id="password-repeat" type="password" formControlName="passwordRepeat" required>
 
-  <div *ngIf="email.invalid && (email.dirty || email.touched)">
-    <div *ngIf="email.errors.required">
-      An email is required.
+      <div class="validation-alert" *ngIf="passwordRepeat.invalid && (passwordRepeat.dirty || passwordRepeat.touched)">
+        <div *ngIf="passwordRepeat.errors.required">
+          Password must be repeated.
+        </div>
+      </div>
+      <div class="validation-form-group-alert" *ngIf="registerForm.errors?.passwordEqual && (passwordRepeat.dirty || passwordRepeat.touched)">
+        The passwords doesn't match.
+      </div>
     </div>
-    <div *ngIf="email.errors.maxlength">
-      The email can maximum be 320 characters.
-    </div>
-    <div *ngIf="email.errors.email">
-      The email isn't valid.
-    </div>
-  </div>
-  
-  <label for="username">Username:</label>
-  <input id="username" type="text" formControlName="username" required>
+    
+    <button class="center" type="submit" [disabled]="!registerForm.valid">Submit</button>
+  </form>
 
-  <div *ngIf="username.invalid && (username.dirty || username.touched)">
-    <div *ngIf="username.errors.required">
-      An username is required.
-    </div>
-    <div *ngIf="username.errors.minlength">
-      The username can minimum be 2 characters.
-    </div>
-    <div *ngIf="username.errors.maxlength">
-      The username can maximum be 24 characters.
-    </div>
-    <div *ngIf="username.errors.alphanumeric">
-      Only letters(a-z) and numbers can be used in the username.
-    </div>
-  </div>
-  
-  <label for="password">Password:</label> 
-  <input id="password" type="password" formControlName="password" required>
-  
-  <div *ngIf="password.invalid && (password.dirty || password.touched)">
-    <div *ngIf="password.errors.required">
-      A password is required.
-    </div>
-    <div *ngIf="password.errors.minlength">
-      The password can minimum be 10 characters.
-    </div>
-    <div *ngIf="password.errors.maxlength">
-      The password can maximum be 1000 characters.
-    </div>
-  </div>
-
-  <label for="password-repeat">Repeat password:</label>
-  <input id="password-repeat" type="password" formControlName="passwordRepeat" required>
-
-  <div *ngIf="passwordRepeat.invalid && (passwordRepeat.dirty || passwordRepeat.touched)">
-    <div *ngIf="passwordRepeat.errors.required">
-      Password must be repeated.
-    </div>
-  </div>
-  <div *ngIf="registerForm.errors?.passwordEqual && (passwordRepeat.dirty || passwordRepeat.touched)">
-    The passwords doesn't match.
-  </div>
-  
-  <button type="submit" [disabled]="!registerForm.valid">Submit</button>
-</form>
-
-<h2>{{message}}</h2>
+  <h2>{{message}}</h2>
+</div>

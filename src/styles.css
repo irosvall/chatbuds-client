@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+@charset "UTF-8";
+
+html {
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+html, body, nav, header, main, aside, footer, section, div, figure, form {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f4f1de;
+}
+
+/*********** Font styles ************/
+h1, h2, h3 {
+  color: #313349;
+}
+
+/*********** General styles ***********/
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper-round {
+  width: max-content;
+  border-radius: 35px;
+  padding: 40px 60px;
+  border: 5px solid #81b29a;
+  background-color: #fcfbf8;
+}
+
+/*********** Form styles *************/
+form {
+  max-width: 350px;
+}
+
+form input {
+  box-sizing: border-box;
+  display: block;
+  font-size: 1.1em;
+  padding: 0.4em 0.4em;
+}
+
+form input.ng-invalid {
+  border-radius: 5px;
+  border-left: 5px solid #e04a48;
+}
+
+form input.ng-valid {
+  border-radius: 5px;
+  border-left: 5px solid #52c586;
+}
+
+.form-section {
+  position: relative;
+  margin-bottom: 2.3em;
+}
+
+.validation-alert {
+  color: red;
+  font-size: 0.7em;
+  position: absolute;
+}
+
+.validation-form-group-alert {
+  color: red;
+  font-size: 0.7em;
+  position: absolute;
+  top: 73px;
+}
+
+/*********** Button styles ************/
+button {
+  display: block;
+  font-size: 1.2em;
+  background-color: #ecb45b;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+button:hover, button:active {
+  background-color: #f2cc8f;
+}
+
+button:disabled {
+  background-color: #f2cc8f;
+  cursor: initial;
+}
