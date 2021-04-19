@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, AbstractControlDirective, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor (
     private authService: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
         if (res.status === 200) {
           this.message = 'You are now logged in'
           this.loginForm.reset()
+          this.router.navigate([''])
         } else if (res.status === 401) {
           this.message = 'Email or password is wrong'
         } else {

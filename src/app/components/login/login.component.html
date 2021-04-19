@@ -1,13 +1,19 @@
-<h1>Login</h1>
+<div class="wrapper-round center">
+  <h1>Login</h1>
 
-<h2>{{message}}</h2>
-
-<form [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
-  <label for="email">Email:</label>
-  <input id="email" type="email" formControlName="email" required>
-
-  <label for="password">Password:</label> 
-  <input id="password" type="password" formControlName="password" required>
-
-  <button type="submit" [disabled]="!loginForm.valid">Submit</button>
-</form>
+  <h2>{{message}}</h2>
+  
+  <form [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-section">
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email" required>
+    </div>
+  
+    <div class="form-section">
+      <label for="password">Password:</label> 
+      <input id="password" type="password" formControlName="password" required>
+    </div>
+  
+    <button class="center" type="submit" [disabled]="!loginForm.valid">Submit</button>
+  </form>
+</div>
