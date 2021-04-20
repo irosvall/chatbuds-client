@@ -41,9 +41,21 @@ export class AuthService {
    * @returns {Observable<any>}
    */
   login(data: object): Observable<any> {
-    return this.http.post<object>(`${env.API_GATEWAY_URL}auth/api/v1/login`, JSON.stringify(data), this.httpOptionsWithHeaders)
+    return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/login`, JSON.stringify(data), this.httpOptionsWithHeaders)
       .pipe(
         catchError(this.errorHandlerService.handleError<object>('login'))
+      )
+  }
+
+  /**
+   * Logs out an user.
+   *
+   * @returns {Observable<any>}
+   */
+   logout(): Observable<any> {
+    return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/logout`, JSON.stringify({}), this.httpOptionsWithHeaders)
+      .pipe(
+        catchError(this.errorHandlerService.handleError<object>('logout'))
       )
   }
 
@@ -57,14 +69,14 @@ export class AuthService {
    * @returns {Observable<any>}
    */
   register(data: object): Observable<any> {
-    return this.http.post<object>(`${env.API_GATEWAY_URL}auth/api/v1/register`, JSON.stringify(data), this.httpOptionsWithHeaders)
+    return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/register`, JSON.stringify(data), this.httpOptionsWithHeaders)
       .pipe(
         catchError(this.errorHandlerService.handleError<object>('register'))
       )
   }
 
   async isLoggedIn(): Promise<boolean> {
-    let res = await fetch(`${env.API_GATEWAY_URL}auth/api/v1/isLoggedIn`, {
+    let res = await fetch(`${env.API_GATEWAY_URL}api/v1/auth/isLoggedIn`, {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify({}),

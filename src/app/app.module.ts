@@ -13,7 +13,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component'
 import { RegisterComponent } from './components/register/register.component'
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/errors/page-not-found/page-not-found.component';
-import { HeaderComponent } from './components/header/header.component'
+import { HeaderComponent } from './components/header/header.component';
+import { LogoutComponent } from './components/logout/logout.component'
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { HeaderComponent } from './components/header/header.component'
     LoginComponent,
     PageNotFoundComponent,
     HeaderComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
