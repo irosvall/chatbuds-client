@@ -6,4 +6,6 @@ export interface User {
   about?: string;
   friends?: Array<User>;
   chats?: Array<Chat>;
+  createdAt?: string;
+  updatedAt?: string;
 }
