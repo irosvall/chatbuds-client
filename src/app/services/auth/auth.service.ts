@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment as env } from '../../../environments/environment'
 
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs'
+import { catchError, map, tap } from 'rxjs/operators'
 
-import { ErrorHandlerService } from './../error-handler/error-handler.service';
+import { ErrorHandlerService } from './../error-handler/error-handler.service'
+import { UserService } from '../user/user.service'
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ import { ErrorHandlerService } from './../error-handler/error-handler.service';
 export class AuthService {
   httpOptions: Object = {
     withCredentials: true,
+    observe: 'response',
   }
 
   httpOptionsWithHeaders: Object = {
@@ -30,6 +32,7 @@ export class AuthService {
   constructor (
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService,
+    private userService: UserService,
   ) { }
 
  /**
@@ -43,6 +46,7 @@ export class AuthService {
   login(data: object): Observable<any> {
     return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/login`, JSON.stringify(data), this.httpOptionsWithHeaders)
       .pipe(
+        tap(() => this.userService.getCurrentUser()),
         catchError(this.errorHandlerService.handleError<object>('login'))
       )
   }
@@ -55,6 +59,7 @@ export class AuthService {
    logout(): Observable<any> {
     return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/logout`, JSON.stringify({}), this.httpOptionsWithHeaders)
       .pipe(
+        tap(() => this.userService.undefineUser()),
         catchError(this.errorHandlerService.handleError<object>('logout'))
       )
   }
@@ -75,20 +80,16 @@ export class AuthService {
       )
   }
 
-  async isLoggedIn(): Promise<boolean> {
-    let res = await fetch(`${env.API_GATEWAY_URL}api/v1/auth/isLoggedIn`, {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({}),
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-
-    if (res.status == 200) {
-      return true
-    } else {
-      return false
-    }
+  isLoggedIn(): Observable<boolean> {
+    return this.userService.getCurrentUser().pipe(
+      map(user => {
+        if (!user) {
+          return false
+        } else {
+          return true
+        }
+      }),
+      catchError(() => of(false))
+    )
   }
 }

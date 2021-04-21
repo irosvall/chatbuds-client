@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable({
@@ -14,17 +16,19 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private authService: AuthService,
   ) { }
-
+  
   /**
    * If user is not logged in an 404 page is shown. Otherwise let user access next page.
    *
-   * @returns {Promise<boolean>}
+   * @returns {Observable<boolean>}
    */
-  async canActivate(): Promise<boolean> {
-    if (!(await this.authService.isLoggedIn())) {
-      this.router.navigate(['404'], { skipLocationChange: true })
-      return false
-    }
-    return true
+  canActivate(): Observable<boolean> {
+    return this.authService.isLoggedIn().pipe(
+      tap(isLoggedIn => {
+        if (!isLoggedIn) {
+          this.router.navigate(['404'], { skipLocationChange: true })
+        }
+      })
+    )
   }
 }
