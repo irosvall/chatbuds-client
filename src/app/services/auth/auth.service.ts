@@ -46,7 +46,7 @@ export class AuthService {
   login(data: object): Observable<any> {
     return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/login`, JSON.stringify(data), this.httpOptionsWithHeaders)
       .pipe(
-        tap(() => this.userService.getCurrentUser()),
+        tap(() => this.userService.getAndDefineCurrentUser().subscribe()),
         catchError(this.errorHandlerService.handleError<object>('login'))
       )
   }
@@ -81,7 +81,7 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this.userService.getCurrentUser().pipe(
+    return this.userService.getAndDefineCurrentUser().pipe(
       map(user => {
         if (!user) {
           return false
