@@ -5,6 +5,8 @@ import { AuthService } from '../../services/auth/auth.service'
 import { passwordEqualValidator } from '../../validators/password-equal.directive'
 import { alphanumericValidator } from '../../validators/alphanumeric.directive'
 import { emailValidator } from '../../validators/email.directive'
+import { AlertService } from 'src/app/services/alert/alert.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-register',
@@ -18,7 +20,9 @@ export class RegisterComponent implements OnInit {
   message: string
 
   constructor (
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -33,12 +37,12 @@ export class RegisterComponent implements OnInit {
     })
       .subscribe((res) => {
         if (res.status === 201) {
-          this.message = 'User was created'
-          this.registerForm.reset()
+          this.alertService.successAlert('User was created')
+          this.router.navigate(['login'])
         } else if (res.status === 409) {
-          this.message = res.error.message
+          this.alertService.warningAlert(res.error.message)
         } else {
-          this.message = 'An error occured, try again'
+          this.alertService.warningAlert('An error occured, try again')
         }
         subscription.unsubscribe()
       })

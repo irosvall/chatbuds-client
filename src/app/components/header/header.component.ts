@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { Component, OnInit } from '@angular/core'
+import { UserService } from 'src/app/services/user/user.service'
 
 @Component({
   selector: 'app-header',
@@ -16,6 +14,6 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.isLoggedIn$.subscribe(status => this.isLoggedIn = status)
+    this.userService.onIsLoggedIn().subscribe(status => this.isLoggedIn = status)
   }
 }

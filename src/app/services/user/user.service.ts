@@ -14,7 +14,7 @@ import { environment as env } from '../../../environments/environment'
  */
 export class UserService {
   private currentUser: User
-  public isLoggedIn$: Subject<boolean> = new Subject()
+  private isLoggedIn: Subject<boolean> = new Subject<boolean>()
 
   constructor (
     private http: HttpClient,
@@ -24,17 +24,17 @@ export class UserService {
 
   getAndDefineCurrentUser(): Observable<User> {
     if (this.currentUser) {
-      this.isLoggedIn$.next(true)
+      this.isLoggedIn.next(true)
       return of(this.currentUser);
     } else {
       return this.http.get<User>(`${env.API_GATEWAY_URL}api/v1/resource/user`, { withCredentials: true })
         .pipe(
           tap(user => {
-            this.isLoggedIn$.next(true)
+            this.isLoggedIn.next(true)
             this.currentUser = user
           }),
           catchError(() => {
-            this.isLoggedIn$.next(false)
+            this.isLoggedIn.next(false)
             this.currentUser = undefined
             return of(this.currentUser)
           })
@@ -44,6 +44,10 @@ export class UserService {
 
   undefineUser(): void {
     this.currentUser = undefined
-    this.isLoggedIn$.next(false)
+    this.isLoggedIn.next(false)
+  }
+
+  onIsLoggedIn(): Observable<boolean> {
+    return this.isLoggedIn.asObservable()
   }
 }
