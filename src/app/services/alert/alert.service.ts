@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Alert } from 'src/app/models/alert';
+import { Alert, AlertType } from 'src/app/models/alert';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +14,35 @@ export class AlertService {
 
   constructor() { }
 
-  addAlert(alert: Alert): void {
-    this.alertSubject.next(alert)
-  }
-
+  /**
+   * Let's other subscribe to new alerts.
+   */
   onAlert(): Observable<Alert> {
     return this.alertSubject.asObservable()
+  }
+
+  successAlert(message: string) {
+    this.addAlert({
+      message: message,
+      type: AlertType.Success
+    })
+  }
+
+  warningAlert(message: string) {
+    this.addAlert({
+      message: message,
+      type: AlertType.Warning
+    })
+  }
+
+  infoAlert(message: string) {
+    this.addAlert({
+      message: message,
+      type: AlertType.Info
+    })
+  }
+
+  addAlert(alert: Alert): void {
+    this.alertSubject.next(alert)
   }
 }

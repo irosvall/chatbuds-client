@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AbstractControlDirective, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { Component, OnInit } from '@angular/core'
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
+import { AlertService } from 'src/app/services/alert/alert.service'
+import { AuthService } from 'src/app/services/auth/auth.service'
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor (
     private authService: AuthService,
     private router: Router,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -27,13 +29,12 @@ export class LoginComponent implements OnInit {
     const subscription = this.authService.login(this.loginForm.value)
       .subscribe((res) => {
         if (res.status === 200) {
-          this.message = 'You are now logged in'
-          this.loginForm.reset()
+          this.alertService.successAlert('You are now logged in')
           this.router.navigate([''])
         } else if (res.status === 401) {
-          this.message = 'Email or password is wrong'
+          this.alertService.warningAlert('Email or password is wrong')
         } else {
-          this.message = 'An error occured, try again'
+          this.alertService.warningAlert('An error occured, try again')
         }
         subscription.unsubscribe()
       })
