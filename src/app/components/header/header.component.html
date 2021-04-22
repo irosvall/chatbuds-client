@@ -1,0 +1,16 @@
+<header>
+  <a id="home-link" routerLink="/">ChatBuds</a>
+  <nav id="auth-bar">
+    <ul>
+      <li *ngIf="!isLoggedIn">
+        <a routerLink="/register" routerLinkActive="active-link">Register</a>
+      </li>
+      <li *ngIf="!isLoggedIn">
+        <a routerLink="/login" routerLinkActive="active-link">Login</a>
+      </li>
+      <li *ngIf="isLoggedIn">
+        <a routerLink="/logout" routerLinkActive="active-link">Logout</a>
+      </li>
+    </ul>
+  </nav>
+</header>

@@ -1,19 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-
-import { ApiGatewayService } from '../../services/api-gateway.service'
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css']
 })
-export class WelcomeComponent implements OnInit {
-  message: String = '';
+export class WelcomeComponent {
+  title = 'ChatBuds';
 
-  constructor(private apiGatewayService: ApiGatewayService) { }
-
-  ngOnInit(): void {
-    this.apiGatewayService.getWelcomeText()
-      .subscribe(object => this.message = object.message); 
-  }
+  constructor() { }
 }
