@@ -1,0 +1,33 @@
+div {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  display: inline;
+  text-align: center;
+  margin: 0;
+  margin-left: auto;
+}
+
+button {
+  padding: 0 10px;
+  margin: 0;
+  margin-left: auto;
+  font-size: 30px;
+  border: none;
+}
+
+.success {
+  background-color: #52c586;
+}
+
+.warning {
+  background-color: #e04a48;
+}
+
+.info {
+  background-color: #e4d871;
+}
