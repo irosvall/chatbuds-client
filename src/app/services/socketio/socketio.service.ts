@@ -6,16 +6,20 @@ import { environment as env } from '../../../environments/environment'
   providedIn: 'root'
 })
 export class SocketioService {
-  socket: Socket
+  private _socket: Socket
 
   constructor () { 
   }
 
   setupSocketConnection(): void {
-    this.socket = io(env.API_GATEWAY_URL)
+    this._socket = io(env.API_GATEWAY_URL, { autoConnect: false })
 
     this.socket.on('message', message => {
       console.log(message)
     })
+  }
+
+  get socket(): Socket {
+    return this._socket
   }
 }

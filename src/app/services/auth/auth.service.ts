@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators'
 
 import { ErrorHandlerService } from './../error-handler/error-handler.service'
 import { UserService } from '../user/user.service'
+import { SocketioService } from '../socketio/socketio.service'
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,7 @@ export class AuthService {
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService,
     private userService: UserService,
+    private socketService: SocketioService,
   ) { }
 
  /**
@@ -46,7 +48,10 @@ export class AuthService {
   login(data: object): Observable<any> {
     return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/login`, JSON.stringify(data), this.httpOptionsWithHeaders)
       .pipe(
-        tap(() => this.userService.getAndDefineCurrentUser().subscribe()),
+        tap(() => {
+          this.userService.getAndDefineCurrentUser().subscribe()
+          this.socketService.socket.connect()
+        }),
         catchError(this.errorHandlerService.handleError<object>('login'))
       )
   }
@@ -59,7 +64,10 @@ export class AuthService {
    logout(): Observable<any> {
     return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/logout`, JSON.stringify({}), this.httpOptionsWithHeaders)
       .pipe(
-        tap(() => this.userService.undefineUser()),
+        tap(() => {
+          this.userService.undefineUser()
+          this.socketService.socket.disconnect()
+        }),
         catchError(this.errorHandlerService.handleError<object>('logout'))
       )
   }

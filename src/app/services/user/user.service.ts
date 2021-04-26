@@ -18,9 +18,7 @@ export class UserService {
 
   constructor (
     private http: HttpClient,
-  ) { 
-    this.getAndDefineCurrentUser().subscribe()
-  }
+  ) {}
 
   getAndDefineCurrentUser(): Observable<User> {
     if (this.currentUser) {
