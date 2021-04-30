@@ -1,0 +1,13 @@
+<div class="chat">
+  <div class="chat-window">
+    <p *ngFor="let message of messages">
+      {{message.sender.username}}: {{message.message}}
+    </p>
+  </div>
+
+  <form class="chat-form" [formGroup]="chatForm" #formDir="ngForm" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()">
+    <label class="offScreen" for="message-input">Write your message here:</label>
+    <textarea class="message-input" name="message-input" formControlName="message"></textarea>
+    <button class="message-send" type="submit" [disabled]="!chatForm.valid">Send</button>
+  </form>
+</div>

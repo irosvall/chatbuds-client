@@ -40,6 +40,11 @@ h1, h2, h3 {
   text-align: center;
 }
 
+.offScreen {
+  position: absolute;
+  left: -100000px;
+}
+
 .filler {
   display: block;
   height: 4%;
@@ -114,4 +119,51 @@ button:disabled {
 /*********** Link styles ************/
 a {
   text-decoration: none;
+}
+
+/*********** Chat styles ************/
+.chat {
+  position: relative;
+}
+
+.message-input {
+  background-color:rgb(235, 251, 253);
+  font-size: 1.2em;
+  padding: 0.2em 0.5em;
+  resize: none;
+  font-family: inherit;
+  width: 250px;
+  height: 1.45em;
+}
+
+.chat-window {
+  background-color: rgb(254, 255, 255);
+  box-sizing: border-box;
+  padding: 0 5px;
+  width: 332px;
+  height: 280px;
+  overflow-y: auto;
+}
+
+.chat-window p {
+  box-sizing: border-box;
+  display: block;
+  max-width: 322px;
+  word-wrap: break-word;
+  font-size: 1.2em;
+  margin: 0.5em 0;
+}
+
+.chat-form {
+  display: flex;
+}
+
+.message-send {
+  background-color: rgb(119, 224, 243);
+  font-size: 1.2em;
+  border-collapse: collapse;
+}
+
+.message-send:hover, .message-send:active {
+  background-color: rgb(156, 229, 241);
 }
