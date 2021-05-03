@@ -1,0 +1,14 @@
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-areas: 
+  "friends-list chat";
+}
+
+#friends-list {
+  grid-area: friends-list;
+}
+
+#chat {
+  grid-area: chat;
+}
