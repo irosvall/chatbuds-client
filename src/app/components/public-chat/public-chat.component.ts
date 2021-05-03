@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ErrorMessage } from 'src/app/models/errorMessage';
 import { Message } from 'src/app/models/message';
 import { SocketioService } from 'src/app/services/socketio/socketio.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -12,6 +13,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class PublicChatComponent implements OnInit {
   chatForm: FormGroup
   messages: Message[] = []
+  errorMessage: ErrorMessage
 
   constructor (
     private socketService: SocketioService,
@@ -21,7 +23,8 @@ export class PublicChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
-    this.socketService.socket.on('publicMessage', data => this.onPublicMessage(data))
+    this.socketService.socket.on('publicMessage', message => this.onPublicMessage(message))
+    this.socketService.socket.on('validationError', errorMessage => this.onValidationError(errorMessage))
   }
 
   /**
@@ -30,6 +33,7 @@ export class PublicChatComponent implements OnInit {
   onSubmit(): void {
     this.socketService.socket.emit("publicMessage", { message: this.message.value })
     this.chatForm.reset()
+    this.errorMessage = undefined
   }
 
   /**
@@ -49,11 +53,18 @@ export class PublicChatComponent implements OnInit {
   /**
    * Add incoming message to messages array for display.
    */
-  private onPublicMessage(data: Message) {
-    this.messages.push(data)
+  private onPublicMessage(message: Message) {
+    this.messages.push(message)
 
     // Manually detect changes in the DOM to automatically scroll down when needed.
     this.changeDetectorRef.detectChanges()
+  }
+
+  /**
+   * Displays an errorMessage if a validation error happens for message input.
+   */
+  private onValidationError(message: ErrorMessage) {
+    this.errorMessage = message
   }
 
   /**

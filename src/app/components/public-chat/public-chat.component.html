@@ -4,6 +4,8 @@
       <div class="message-username">{{message.sender.username}}</div>
       <p>{{message.message}}</p>
     </div>
+
+    <span class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</span>
   </div>
 
   <form class="chat-form" [formGroup]="chatForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
