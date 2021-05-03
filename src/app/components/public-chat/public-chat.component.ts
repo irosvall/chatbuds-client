@@ -46,7 +46,9 @@ export class PublicChatComponent implements OnInit {
       !event.altKey &&
       !event.metaKey) {
       event.preventDefault()
-      this.onSubmit()
+      if (this.chatForm.valid) {
+        this.onSubmit()
+      }
     }
   }
 
