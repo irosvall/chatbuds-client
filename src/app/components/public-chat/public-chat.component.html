@@ -1,13 +1,14 @@
 <div class="chat">
-  <div class="chat-window">
-    <p *ngFor="let message of messages">
-      {{message.sender.username}}: {{message.message}}
-    </p>
+  <div class="chat-window" #chatWindow [scrollTop]="chatWindow.scrollHeight">
+    <div class="message" *ngFor="let message of messages" [ngClass]="{'current-user' : message.sender.username === loggedInUsername}">
+      <div class="message-username">{{message.sender.username}}</div>
+      <p>{{message.message}}</p>
+    </div>
   </div>
 
-  <form class="chat-form" [formGroup]="chatForm" #formDir="ngForm" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()">
+  <form class="chat-form" [formGroup]="chatForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
     <label class="offScreen" for="message-input">Write your message here:</label>
-    <textarea class="message-input" name="message-input" formControlName="message"></textarea>
+    <textarea class="message-input" name="message-input" formControlName="message" (keydown)="onKeydown($event)"></textarea>
     <button class="message-send" type="submit" [disabled]="!chatForm.valid">Send</button>
   </form>
 </div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'src/app/models/message';
 import { SocketioService } from 'src/app/services/socketio/socketio.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-public-chat',
@@ -12,8 +13,10 @@ export class PublicChatComponent implements OnInit {
   chatForm: FormGroup
   messages: Message[] = []
 
-  constructor(
-    private socketService: SocketioService
+  constructor (
+    private socketService: SocketioService,
+    private userService: UserService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +33,30 @@ export class PublicChatComponent implements OnInit {
   }
 
   /**
+   * When user presses a key submit message when the key is enter.
+   */
+  onKeydown(event: KeyboardEvent): void {
+    if (event.code === 'Enter' &&
+      !event.shiftKey &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey) {
+      event.preventDefault()
+      this.onSubmit()
+    }
+  }
+
+  /**
+   * Add incoming message to messages array for display.
+   */
+  private onPublicMessage(data: Message) {
+    this.messages.push(data)
+
+    // Manually detect changes in the DOM to automatically scroll down when needed.
+    this.changeDetectorRef.detectChanges()
+  }
+
+  /**
    * Intializes the chat form.
    */
   private initForm(): void {
@@ -38,14 +65,11 @@ export class PublicChatComponent implements OnInit {
     })
   }
 
-  /**
-   * Add incoming message to messages array for display.
-   */
-  private onPublicMessage(data: Message) {
-    this.messages.push(data)
-  }
-
   get message(): AbstractControl {
     return this.chatForm.get('message')
+  }
+
+  get loggedInUsername(): string {
+    return this.userService.username
   }
 }

@@ -16,7 +16,8 @@ import { PageNotFoundComponent } from './components/errors/page-not-found/page-n
 import { HeaderComponent } from './components/header/header.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { PublicChatComponent } from './components/public-chat/public-chat.component'
+import { PublicChatComponent } from './components/public-chat/public-chat.component';
+import { HomeComponent } from './home/home.component'
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PublicChatComponent } from './components/public-chat/public-chat.compon
     LogoutComponent,
     AlertComponent,
     PublicChatComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

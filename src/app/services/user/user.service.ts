@@ -48,4 +48,8 @@ export class UserService {
   onIsLoggedIn(): Observable<boolean> {
     return this.isLoggedIn.asObservable()
   }
+
+  get username(): string {
+    return this.currentUser.username
+  }
 }

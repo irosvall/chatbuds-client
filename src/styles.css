@@ -27,6 +27,7 @@ router-outlet {
 
 /*********** Font styles ************/
 h1, h2, h3 {
+  
   color: #313349;
 }
 
@@ -59,10 +60,6 @@ h1, h2, h3 {
 }
 
 /*********** Form styles *************/
-form {
-  max-width: 350px;
-}
-
 form input {
   box-sizing: border-box;
   display: block;
@@ -123,35 +120,69 @@ a {
 
 /*********** Chat styles ************/
 .chat {
-  position: relative;
+  max-width: 1000px;
+  margin-right: 1em;
 }
 
 .message-input {
-  background-color:rgb(235, 251, 253);
+  display: block;
+  width: 100%;
+  background-color:#f0eccc;
   font-size: 1.2em;
   padding: 0.2em 0.5em;
   resize: none;
   font-family: inherit;
-  width: 250px;
-  height: 1.45em;
+  height: 3em;
 }
 
 .chat-window {
-  background-color: rgb(254, 255, 255);
+  display: block;
+  height: 70vh;
+  background-color: #ffffff;
   box-sizing: border-box;
-  padding: 0 5px;
-  width: 332px;
-  height: 280px;
+  padding: 1em;
   overflow-y: auto;
 }
 
-.chat-window p {
+.chat-window .message {
+  width: max-content;
+  max-width: 100%;
   box-sizing: border-box;
-  display: block;
-  max-width: 322px;
   word-wrap: break-word;
+  margin: 1em 0;
+}
+
+.message-username {
+  color: #404253;
+  font-size: 0.9em;
+  margin-left: 0.8em;
+}
+
+/* Display to the right for the user */
+.current-user .message-username {
+  text-align: end;
+  margin-right: 0.8em;
+}
+
+.chat-window .message.current-user {
+  margin-left: auto;
+}
+
+.chat-window p {
   font-size: 1.2em;
-  margin: 0.5em 0;
+  margin: 0;
+  padding: 0.4em 1.2em;
+  border-radius: 0.8em;
+  white-space: pre-line;
+}
+
+.chat-window .message p {
+  background-color: #deece8;
+}
+
+.chat-window .message.current-user p {
+  color: #ffffff;
+  background-color: #6bb491;
 }
 
 .chat-form {
@@ -159,11 +190,6 @@ a {
 }
 
 .message-send {
-  background-color: rgb(119, 224, 243);
   font-size: 1.2em;
   border-collapse: collapse;
-}
-
-.message-send:hover, .message-send:active {
-  background-color: rgb(156, 229, 241);
 }
