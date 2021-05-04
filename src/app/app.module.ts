@@ -15,7 +15,9 @@ import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/errors/page-not-found/page-not-found.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { AlertComponent } from './components/alert/alert.component'
+import { AlertComponent } from './components/alert/alert.component';
+import { PublicChatComponent } from './components/public-chat/public-chat.component';
+import { HomeComponent } from './home/home.component'
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { AlertComponent } from './components/alert/alert.component'
     HeaderComponent,
     LogoutComponent,
     AlertComponent,
+    PublicChatComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

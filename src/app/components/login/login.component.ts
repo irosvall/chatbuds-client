@@ -12,9 +12,6 @@ import { AuthService } from 'src/app/services/auth/auth.service'
 export class LoginComponent implements OnInit {
   loginForm: FormGroup
 
-  // TODO: Make alert component
-  message: string
-
   constructor (
     private authService: AuthService,
     private router: Router,

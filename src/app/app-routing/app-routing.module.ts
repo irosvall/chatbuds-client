@@ -8,9 +8,12 @@ import { LogoutComponent } from '../components/logout/logout.component'
 
 import { AuthGuard } from '../guards/auth/auth.guard'
 import { AnonymousGuard } from '../guards/anonymous/anonymous.guard'
+import { HomeComponent } from '../home/home.component'
+import { HomeGuard } from '../guards/home/home.guard'
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
+  { path: '', component: HomeComponent, canActivate: [HomeGuard] },
+  { path: 'welcome', component: WelcomeComponent, canActivate: [AnonymousGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AnonymousGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },

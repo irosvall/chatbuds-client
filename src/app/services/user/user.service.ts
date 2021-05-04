@@ -18,9 +18,7 @@ export class UserService {
 
   constructor (
     private http: HttpClient,
-  ) { 
-    this.getAndDefineCurrentUser().subscribe()
-  }
+  ) {}
 
   getAndDefineCurrentUser(): Observable<User> {
     if (this.currentUser) {
@@ -49,5 +47,9 @@ export class UserService {
 
   onIsLoggedIn(): Observable<boolean> {
     return this.isLoggedIn.asObservable()
+  }
+
+  get username(): string {
+    return this.currentUser.username
   }
 }

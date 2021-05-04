@@ -16,9 +16,6 @@ import { Router } from '@angular/router'
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup
 
-  // TODO: Make alert component
-  message: string
-
   constructor (
     private authService: AuthService,
     private router: Router,
