@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ErrorMessage } from 'src/app/models/error-message'
 import { Message } from 'src/app/models/message'
@@ -10,11 +10,16 @@ import { UserService } from 'src/app/services/user/user.service'
   templateUrl: './random-chat.component.html',
   styleUrls: ['./random-chat.component.css']
 })
-export class RandomChatComponent implements OnInit {
-  chatForm: FormGroup
-  messages: Message[] = []
-  errorMessage: ErrorMessage
-  
+export class RandomChatComponent implements OnInit, OnDestroy {
+  public chatForm: FormGroup
+  public messages: Message[] = []
+  public errorMessage: ErrorMessage
+
+  // States to update the template depending on.
+  public isSearching: Boolean = false
+  public hasMatch: Boolean = false
+  public isLeft: Boolean = false
+
   private matchedUser: User
 
   constructor (
@@ -25,11 +30,24 @@ export class RandomChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
-    this.chatForm.disable()
-    this.socketService.socket.emit('randomChatJoin')
     this.socketService.socket.on('chatMatch', matchedUser => this.onChatMatch(matchedUser))
+    this.socketService.socket.on('randomChatLeave', () => this.onLeft())
     this.socketService.socket.on('privateMessage', message => this.onPrivateMessage(message))
     this.socketService.socket.on('validationError', errorMessage => this.onValidationError(errorMessage))
+  }
+
+  ngOnDestroy(): void {
+    this.socketService.socket.emit('randomChatLeave', { to: this.matchedUser?.userID })
+  }
+
+  /**
+   * Triggers when the user press "start chat".
+   */
+  onStartSearch(): void {
+    this.isLeft = false
+    this.hasMatch = false
+    this.isSearching = true
+    this.socketService.socket.emit('randomChatJoin')
   }
 
   /**
@@ -37,8 +55,7 @@ export class RandomChatComponent implements OnInit {
    */
   onSubmit(): void {
     this.socketService.socket.emit('privateMessage', { data: { message: this.message.value }, to: this.matchedUser.userID })
-    this.chatForm.reset()
-    this.errorMessage = undefined
+    this.resetChat()
   }
 
   /**
@@ -57,17 +74,30 @@ export class RandomChatComponent implements OnInit {
     }
   }
 
+  /**
+   * Triggers when the user gets matched with another user.
+   */
   private onChatMatch(matchedUser: User) {
-    console.log(matchedUser.username)
     this.chatForm.enable()
     this.matchedUser = matchedUser
+    this.isSearching = false
+    this.hasMatch = true
+  }
+
+  /**
+   * Gets triggered when the other user leaves the chat session.
+   */
+  private onLeft(): void {
+    this.matchedUser = undefined
+    this.isLeft = true
+    this.chatForm.disable()
+    this.resetChat(true)
   }
 
   /**
    * Add incoming message to messages array for display.
    */
   private onPrivateMessage(message: Message) {
-    console.log(message)
     this.messages.push(message)
 
     // Manually detect changes in the DOM to automatically scroll down when needed.
@@ -88,6 +118,20 @@ export class RandomChatComponent implements OnInit {
     this.chatForm = new FormGroup({
       message: new FormControl('', Validators.required)
     })
+  }
+
+  /**
+   * Resets the chat.
+   *
+   * @param {Boolean} shouldDeleteMessages - Decides whether or not the messages should get deleted.
+   */
+  private resetChat(shouldDeleteMessages: Boolean = false): void {
+    this.chatForm.reset()
+    this.errorMessage = undefined
+
+    if (shouldDeleteMessages) {
+      this.messages = []
+    }
   }
 
   get message(): AbstractControl {
