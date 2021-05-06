@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ErrorMessage } from 'src/app/models/error-message'
 import { Message } from 'src/app/models/message'
 import { User } from 'src/app/models/user'
+import { AlertService } from 'src/app/services/alert/alert.service'
 import { SocketioService } from 'src/app/services/socketio/socketio.service'
 import { UserService } from 'src/app/services/user/user.service'
 @Component({
@@ -27,6 +28,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
     private socketService: SocketioService,
     private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +75,14 @@ export class RandomChatComponent implements OnInit, OnDestroy {
     this.previousMatch = this.matchedUser
     this.matchedUser = undefined
     this.onStartSearch()
+  }
+
+  /**
+   * Sends a friend request to the current chat buddy.
+   */
+  onAddFriend(): void {
+    console.log(this.matchedUser)
+    this.alertService.successAlert('Friend request sent')
   }
 
   /**

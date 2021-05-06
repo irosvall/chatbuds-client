@@ -7,28 +7,31 @@
   <p>Searching for a chat buddy...</p>
 </div>
 
-<div id="random-chat-options" *ngIf="hasMatch">
-  <button (click)="onSearchNew()">New chatting buddy</button>
-</div>
-
-<div class="chat" *ngIf="hasMatch">
-  <div class="chat-window" #chatWindow [scrollTop]="chatWindow.scrollHeight">
-    <div class="message" *ngFor="let message of messages" [ngClass]="{'current-user' : message.sender.username === loggedInUsername}">
-      <div class="message-username">{{message.sender.username}}</div>
-      <p>{{message.message}}</p>
-    </div>
-
-    <span class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</span>
+<div id="random-chat" *ngIf="hasMatch">
+  <div id="random-chat-options">
+    <button (click)="onSearchNew()">New chatting buddy</button>
+    <button (click)="onAddFriend()">Add friend</button>
   </div>
 
-  <form class="chat-form" [formGroup]="chatForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
-    <label class="offScreen" for="message-input">Write your message here:</label>
-    <textarea class="message-input" name="message-input" formControlName="message" (keydown)="onKeydown($event)"></textarea>
-    <button class="message-send" type="submit" [disabled]="!chatForm.valid">Send</button>
-  </form>
+  <div class="chat">
+    <div class="chat-window" #chatWindow [scrollTop]="chatWindow.scrollHeight">
+      <div class="message" *ngFor="let message of messages" [ngClass]="{'current-user' : message.sender.username === loggedInUsername}">
+        <div class="message-username">{{message.sender.username}}</div>
+        <p>{{message.message}}</p>
+      </div>
 
-  <div id="random-chat-left" *ngIf="isLeft">
-    <p>Seems like your chat buddy left, wanna find a new one?</p>
-    <button class="center" (click)="onSearchNew()">Search new</button>
+      <span class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</span>
+    </div>
+
+    <form class="chat-form" [formGroup]="chatForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+      <label class="offScreen" for="message-input">Write your message here:</label>
+      <textarea class="message-input" name="message-input" formControlName="message" (keydown)="onKeydown($event)"></textarea>
+      <button class="message-send" type="submit" [disabled]="!chatForm.valid">Send</button>
+    </form>
+
+    <div id="random-chat-left" *ngIf="isLeft">
+      <p>Seems like your chat buddy left, wanna find a new one?</p>
+      <button class="center" (click)="onSearchNew()">Search new</button>
+    </div>
   </div>
 </div>
