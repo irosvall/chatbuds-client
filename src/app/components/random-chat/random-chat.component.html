@@ -7,6 +7,10 @@
   <p>Searching for a chat buddy...</p>
 </div>
 
+<div id="random-chat-options" *ngIf="hasMatch">
+  <button (click)="onSearchNew()">New chatting buddy</button>
+</div>
+
 <div class="chat" *ngIf="hasMatch">
   <div class="chat-window" #chatWindow [scrollTop]="chatWindow.scrollHeight">
     <div class="message" *ngFor="let message of messages" [ngClass]="{'current-user' : message.sender.username === loggedInUsername}">
@@ -22,9 +26,9 @@
     <textarea class="message-input" name="message-input" formControlName="message" (keydown)="onKeydown($event)"></textarea>
     <button class="message-send" type="submit" [disabled]="!chatForm.valid">Send</button>
   </form>
-</div>
 
-<div id="random-chat-left" *ngIf="isLeft">
-  <p>Seems like your chat buddy left, wanna find a new one?</p>
-  <button (click)="onStartSearch()">Search new</button>
+  <div id="random-chat-left" *ngIf="isLeft">
+    <p>Seems like your chat buddy left, wanna find a new one?</p>
+    <button class="center" (click)="onSearchNew()">Search new</button>
+  </div>
 </div>

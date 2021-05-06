@@ -21,6 +21,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   public isLeft: Boolean = false
 
   private matchedUser: User
+  private previousMatch: User
 
   constructor (
     private socketService: SocketioService,
@@ -37,7 +38,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.socketService.socket.emit('randomChatLeave', { to: this.matchedUser?.userID })
+    this.leaveChat()
   }
 
   /**
@@ -47,7 +48,11 @@ export class RandomChatComponent implements OnInit, OnDestroy {
     this.isLeft = false
     this.hasMatch = false
     this.isSearching = true
-    this.socketService.socket.emit('randomChatJoin')
+    this.socketService.socket.emit('randomChatJoin', {
+      options: {
+        previousChatBuddy: this.previousMatch?.userID 
+      }
+    })
   }
 
   /**
@@ -56,6 +61,18 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.socketService.socket.emit('privateMessage', { data: { message: this.message.value }, to: this.matchedUser.userID })
     this.resetChat()
+  }
+
+  /**
+   * Makes user leave the current chat buddy and search for a new one.
+   */
+  onSearchNew(): void {
+    if (!this.isLeft) {
+      this.leaveChat()
+    }
+    this.previousMatch = this.matchedUser
+    this.matchedUser = undefined
+    this.onStartSearch()
   }
 
   /**
@@ -77,7 +94,8 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   /**
    * Triggers when the user gets matched with another user.
    */
-  private onChatMatch(matchedUser: User) {
+  private onChatMatch(matchedUser: User): void {
+    this.resetChat(true)
     this.chatForm.enable()
     this.matchedUser = matchedUser
     this.isSearching = false
@@ -88,16 +106,14 @@ export class RandomChatComponent implements OnInit, OnDestroy {
    * Gets triggered when the other user leaves the chat session.
    */
   private onLeft(): void {
-    this.matchedUser = undefined
     this.isLeft = true
     this.chatForm.disable()
-    this.resetChat(true)
   }
 
   /**
    * Add incoming message to messages array for display.
    */
-  private onPrivateMessage(message: Message) {
+  private onPrivateMessage(message: Message): void {
     this.messages.push(message)
 
     // Manually detect changes in the DOM to automatically scroll down when needed.
@@ -107,8 +123,15 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   /**
    * Displays an errorMessage if a validation error happens for message input.
    */
-  private onValidationError(message: ErrorMessage) {
+  private onValidationError(message: ErrorMessage): void {
     this.errorMessage = message
+  }
+
+  /**
+   * Emits a socket message that the user has left the chat.
+   */
+  private leaveChat(): void {
+    this.socketService.socket.emit('randomChatLeave', { to: this.matchedUser?.userID })
   }
 
   /**
