@@ -1,13 +1,13 @@
-<div id="random-chat-welcome" *ngIf="!isSearching && !hasMatch && !isLeft">
+<div id="random-chat-welcome" class="absolute-center" *ngIf="!isSearching && !hasMatch && !isLeft">
   <h2>Start chatting and get new friends</h2>
-  <button (click)="onStartSearch()">Start chat</button>
+  <button class="center" (click)="onStartSearch()">Start chat</button>
 </div>
 
-<div id="random-chat-queue" *ngIf="isSearching">
-  <p>Searching for a chat buddy...</p>
+<div id="random-chat-queue" class="absolute-center" *ngIf="isSearching">
+  <h2>Searching for a chat buddy...</h2>
 </div>
 
-<div id="random-chat" *ngIf="hasMatch">
+<div id="random-chat" class="center" *ngIf="hasMatch">
   <div id="random-chat-options">
     <button (click)="onSearchNew()">New chatting buddy</button>
     <button (click)="onAddFriend()">Add friend</button>
@@ -29,7 +29,7 @@
       <button class="message-send" type="submit" [disabled]="!chatForm.valid">Send</button>
     </form>
 
-    <div id="random-chat-left" *ngIf="isLeft">
+    <div id="random-chat-left" class="absolute-center" *ngIf="isLeft">
       <p>Seems like your chat buddy left, wanna find a new one?</p>
       <button class="center" (click)="onSearchNew()">Search new</button>
     </div>

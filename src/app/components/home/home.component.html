@@ -1,9 +1,10 @@
 <div class="home-container">
   <div id="friends-list"></div>
 
-  <div id="chat">
-    <app-public-chat messageType="publicMessage"></app-public-chat>
-  </div>
+  <div id="home-main">
+    <app-public-chat id="public-chat" messageType="publicMessage"></app-public-chat>
 
-  <button routerLink="/randomchat"></button>
+    <p>Wanna find a new chatting buddy? Click on find chatbuddy to get into a private chat session with another person:</p>
+    <button class="center" routerLink="/randomchat">Find chatbuddy</button>
+  </div>
 </div>
