@@ -2,13 +2,15 @@
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-areas: 
-  "friends-list chat";
+  "friends-list home-main";
+  justify-items: center;
 }
 
 #friends-list {
   grid-area: friends-list;
 }
 
-#chat {
-  grid-area: chat;
+#home-main {
+  grid-area: home-main;
+  margin-bottom: 2em;
 }

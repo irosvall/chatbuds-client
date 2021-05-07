@@ -21,15 +21,3 @@
 #random-chat-options button:hover, #random-chat-options button:active {
   background-color: #adddc6;
 }
-
-#random-chat-left {
-  /*Centering the element*/
-  position: absolute;
-  width: max-content;
-  top: 50%;
-  left:0;
-  right:0;
-  margin-left:auto;
-  margin-right:auto;
-  transform: translate(0, -50%);
-}

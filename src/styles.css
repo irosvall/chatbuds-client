@@ -37,6 +37,17 @@ h1, h2, h3 {
   margin-right: auto;
 }
 
+.absolute-center {
+  position: absolute;
+  width: max-content;
+  top: 50%;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  transform: translate(0, -50%);
+}
+
 .center-text {
   text-align: center;
 }
@@ -138,7 +149,7 @@ a {
 
 .chat-window {
   display: block;
-  height: 70vh;
+  height: 62vh;
   background-color: #ffffff;
   box-sizing: border-box;
   padding: 1em;

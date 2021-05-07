@@ -12,7 +12,15 @@ export class SocketioService {
   }
 
   setupSocketConnection(): void {
-    this._socket = io(env.API_GATEWAY_URL, { autoConnect: false, withCredentials: true })
+    const socketOptions: any = {
+      autoConnect: false,
+      withCredentials: true
+    }
+    if (env.SOCKET_PATH) {
+      socketOptions.path = env.SOCKET_PATH
+    }
+
+    this._socket = io(env.DOMAIN_NAME, socketOptions)
   }
 
   get socket(): Socket {
