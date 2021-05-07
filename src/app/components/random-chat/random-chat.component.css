@@ -1,0 +1,35 @@
+#random-chat {
+  max-width: 1000px;
+}
+
+#random-chat-options {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2em;
+  margin-right: 1em;
+}
+
+#random-chat-options button {
+  font-size: 1.1em;
+  background-color: #98c9b1;
+  padding: 0.3em 1em;
+  cursor: pointer;
+  border-radius: 1em 0;
+  border-bottom: none;
+}
+
+#random-chat-options button:hover, #random-chat-options button:active {
+  background-color: #adddc6;
+}
+
+#random-chat-left {
+  /*Centering the element*/
+  position: absolute;
+  width: max-content;
+  top: 50%;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  transform: translate(0, -50%);
+}

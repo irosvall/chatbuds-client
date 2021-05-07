@@ -8,6 +8,8 @@ import { catchError, map, tap } from 'rxjs/operators'
 import { ErrorHandlerService } from './../error-handler/error-handler.service'
 import { UserService } from '../user/user.service'
 import { SocketioService } from '../socketio/socketio.service'
+import { LoginUser } from 'src/app/models/login-user'
+import { RegisterUser } from 'src/app/models/register-user'
 
 @Injectable({
   providedIn: 'root'
@@ -37,16 +39,11 @@ export class AuthService {
     private socketService: SocketioService,
   ) { }
 
- /**
+  /**
    * Logs in an user.
-   *
-   * @param {object} data - The object to be inserted in the body of the request
-   * @param {string} data.email - User's email.
-   * @param {string} data.password - User's password.
-   * @returns {Observable<any>}
    */
-  login(data: object): Observable<any> {
-    return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/login`, JSON.stringify(data), this.httpOptionsWithHeaders)
+  login(user: LoginUser): Observable<any> {
+    return this.http.post<LoginUser>(`${env.API_GATEWAY_URL}api/v1/auth/login`, JSON.stringify(user), this.httpOptionsWithHeaders)
       .pipe(
         tap(() => {
           this.userService.getAndDefineCurrentUser().subscribe()
@@ -58,8 +55,6 @@ export class AuthService {
 
   /**
    * Logs out an user.
-   *
-   * @returns {Observable<any>}
    */
    logout(): Observable<any> {
     return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/logout`, JSON.stringify({}), this.httpOptionsWithHeaders)
@@ -74,20 +69,17 @@ export class AuthService {
 
   /**
    * Registers an user.
-   *
-   * @param {object} data - The object to be inserted in the body of the request
-   * @param {string} data.email - User's email.
-   * @param {string} data.username - User's username.
-   * @param {string} data.password - User's password.
-   * @returns {Observable<any>}
    */
-  register(data: object): Observable<any> {
-    return this.http.post<object>(`${env.API_GATEWAY_URL}api/v1/auth/register`, JSON.stringify(data), this.httpOptionsWithHeaders)
+  register(user: RegisterUser): Observable<any> {
+    return this.http.post<RegisterUser>(`${env.API_GATEWAY_URL}api/v1/auth/register`, JSON.stringify(user), this.httpOptionsWithHeaders)
       .pipe(
         catchError(this.errorHandlerService.handleError<object>('register'))
       )
   }
 
+  /**
+   * Checks if the user is logged in.
+   */
   isLoggedIn(): Observable<boolean> {
     return this.userService.getAndDefineCurrentUser().pipe(
       map(user => {

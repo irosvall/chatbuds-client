@@ -8,8 +8,9 @@ import { LogoutComponent } from '../components/logout/logout.component'
 
 import { AuthGuard } from '../guards/auth/auth.guard'
 import { AnonymousGuard } from '../guards/anonymous/anonymous.guard'
-import { HomeComponent } from '../home/home.component'
+import { HomeComponent } from '../components/home/home.component'
 import { HomeGuard } from '../guards/home/home.guard'
+import { RandomChatComponent } from '../components/random-chat/random-chat.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [HomeGuard] },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [AnonymousGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
+  { path: 'randomchat', component: RandomChatComponent, canActivate: [AuthGuard] },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', component: PageNotFoundComponent },
 ]
