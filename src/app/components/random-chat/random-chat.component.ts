@@ -81,7 +81,6 @@ export class RandomChatComponent implements OnInit, OnDestroy {
    * Sends a friend request to the current chat buddy.
    */
   onAddFriend(): void {
-    console.log(this.matchedUser)
     this.alertService.successAlert('Friend request sent')
   }
 
