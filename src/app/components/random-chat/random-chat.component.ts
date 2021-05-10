@@ -90,7 +90,6 @@ export class RandomChatComponent implements OnInit, OnDestroy {
         this.alertService.warningAlert('An error occured, try again')
       }
     })
-    
   }
 
   /**
