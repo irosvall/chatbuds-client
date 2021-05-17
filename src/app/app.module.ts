@@ -19,7 +19,8 @@ import { AlertComponent } from './components/alert/alert.component'
 import { PublicChatComponent } from './components/public-chat/public-chat.component'
 import { HomeComponent } from './components/home/home.component'
 import { RandomChatComponent } from './components/random-chat/random-chat.component'
-import { FriendListComponent } from './friend-list/friend-list.component'
+import { FriendListComponent } from './components/friend-list/friend-list.component'
+import { PrivateChatComponent } from './components/private-chat/private-chat.component'
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { FriendListComponent } from './friend-list/friend-list.component'
     PublicChatComponent,
     HomeComponent,
     RandomChatComponent,
+    PrivateChatComponent,
     FriendListComponent,
   ],
   imports: [
