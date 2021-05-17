@@ -1,0 +1,26 @@
+h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.3em;
+  padding: 0.5em 0;
+}
+
+#friend-list {
+  background-color: #a8d4bf;
+  height: 100%;
+}
+
+#friend-list ul {
+  margin: 0;
+  padding: 0;
+}
+
+.friend-in-list {
+  background-color: #cce6d9;
+  padding: 0.8em 0.5em;
+  border-left: 2px solid;
+  border-right: 2px solid;
+  border-color: #a8d4bf;
+  max-width: 300px;
+  margin: 2px auto;
+}
