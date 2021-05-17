@@ -1,4 +1,8 @@
-<div *ngFor="let alert of alerts" class="{{alert.type}}">
+<div *ngFor="let alert of alerts" class="alert {{alert.type}}">
   <p>{{alert.message}}</p>
+  <div *ngIf="alert.type === 'friend-request'">
+    <button class="close" (click)="onAcceptFriendRequest(alert)">Accept</button>
+    <button class="close" (click)="onDeclineFriendRequest(alert)">Decline</button>
+  </div>
   <button class="close" (click)="removeAlert(alert)">&times;</button>
 </div>
