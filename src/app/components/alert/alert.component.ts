@@ -51,8 +51,13 @@ export class AlertComponent implements OnInit, OnDestroy {
    * Declines the friend request.
    */
   onDeclineFriendRequest(friendRequest: FriendRequestAlert) {
-    // :TODO decline friend request.
-    this.removeAlert(friendRequest)
+    this.userService.declineFriendRequest(friendRequest.from.userID).subscribe(res => {
+      if (!res.ok) {
+        this.alertService.warningAlert('An error occured, try again')
+      } else {
+        this.removeAlert(friendRequest)
+      }
+    })
   }
 
   /**
