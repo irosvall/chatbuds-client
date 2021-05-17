@@ -7,6 +7,7 @@ html {
 
 html, body {
   height: 100%;
+  color: #000000;
 }
 
 html, body, nav, header, main, aside, footer, section, div, figure, form {
@@ -16,18 +17,12 @@ html, body, nav, header, main, aside, footer, section, div, figure, form {
 }
 
 body {
-  background-color: #f4f1de;
-}
-
-router-outlet {
   position: relative;
-  color: #000000;
-  padding: 10px 7px 20px 7px;
+  background-color: #f4f1de;
 }
 
 /*********** Font styles ************/
 h1, h2, h3 {
-  
   color: #313349;
 }
 
@@ -129,6 +124,11 @@ a {
   text-decoration: none;
 }
 
+/*********** List styles ************/
+li {
+  list-style: none;
+}
+
 /*********** Chat styles ************/
 .chat {
   max-width: 1000px;
@@ -168,6 +168,10 @@ a {
   color: #404253;
   font-size: 0.9em;
   margin-left: 0.8em;
+}
+
+#public-chat .chat-window {
+  height: 40vh;
 }
 
 /* Display to the right for the user */

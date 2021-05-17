@@ -19,6 +19,7 @@ import { AlertComponent } from './components/alert/alert.component'
 import { PublicChatComponent } from './components/public-chat/public-chat.component'
 import { HomeComponent } from './components/home/home.component'
 import { RandomChatComponent } from './components/random-chat/random-chat.component'
+import { FriendListComponent } from './friend-list/friend-list.component'
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RandomChatComponent } from './components/random-chat/random-chat.compon
     PublicChatComponent,
     HomeComponent,
     RandomChatComponent,
+    FriendListComponent,
   ],
   imports: [
     BrowserModule,

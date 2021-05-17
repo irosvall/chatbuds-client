@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { Alert, FriendRequestAlert } from 'src/app/models/alert'
+import { User } from 'src/app/models/user'
 import { AlertService } from 'src/app/services/alert/alert.service'
 import { SocketioService } from 'src/app/services/socketio/socketio.service'
 import { UserService } from 'src/app/services/user/user.service'
@@ -26,12 +27,20 @@ export class AlertComponent implements OnInit, OnDestroy {
       .subscribe(alert => this.alerts.push(alert))
 
     // Listen to friend requests.
-    this.socketService.socket.on('newFriend', res => this.alertService.successAlert(`You are now friends with ${res.user.username}`))
+    this.socketService.socket.on('newFriend', res => this.onNewFriend(res.user))
     this.socketService.socket.on('friendRequest', res => this.alertService.friendRequestAlert(res.from, `${res.from.username} send a friend request`))
   }
 
   ngOnDestroy() {
     this.alertSubscription.unsubscribe()
+  }
+
+  /**
+   * Alert user if it has a new friend and update it's user information.
+   */
+  onNewFriend(user: User) {
+    this.alertService.successAlert(`You are now friends with ${user.username}`)
+    this.userService.updateUser().subscribe()
   }
 
   /**

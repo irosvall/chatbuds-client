@@ -8,8 +8,6 @@ header {
 }
 
 #home-link {
-  width: max-content;
-  height: max-content;
   grid-area: home-link;
   font-size: 2em;
   font-weight: bold;
