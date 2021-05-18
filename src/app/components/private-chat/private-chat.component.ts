@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ErrorMessage } from 'src/app/models/error-message'
 import { Message } from 'src/app/models/message'
 import { User } from 'src/app/models/user'
+import { PrivateMessagesService } from 'src/app/services/private-messages/private-messages.service'
 import { SocketioService } from 'src/app/services/socketio/socketio.service'
 import { UserService } from 'src/app/services/user/user.service'
 
@@ -12,9 +13,9 @@ import { UserService } from 'src/app/services/user/user.service'
   templateUrl: './private-chat.component.html',
   styleUrls: ['./private-chat.component.css']
 })
-export class PrivateChatComponent implements OnInit {
+export class PrivateChatComponent implements OnInit, OnDestroy {
   chatForm: FormGroup
-  messages: Message[] = []
+  messages: Message[]
   errorMessage: ErrorMessage
   friend: User
 
@@ -22,6 +23,7 @@ export class PrivateChatComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private socketService: SocketioService,
+    private privateMessagesService: PrivateMessagesService,
     private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
@@ -30,13 +32,24 @@ export class PrivateChatComponent implements OnInit {
     // Shows 404 page instead if users are not friends.
     if (!this.friend) {
       this.router.navigate(['404'], { skipLocationChange: true })
+      return
     }
-  }
 
+    this.messages = this.privateMessagesService.getPrivateMessages(this.friend.userID)
+  }
+  
   ngOnInit(): void {
     this.initForm()
     this.socketService.socket.on('privateMessage', message => this.onPrivateMessage(message))
     this.socketService.socket.on('validationError', errorMessage => this.onValidationError(errorMessage))
+
+    // Manually detect changes in the DOM to automatically scroll down when needed.
+    this.changeDetectorRef.detectChanges()
+  }
+
+  ngOnDestroy(): void {
+    this.socketService.socket.off('privateMessage')
+    this.socketService.socket.off('validationError')
   }
 
   /**
@@ -68,7 +81,10 @@ export class PrivateChatComponent implements OnInit {
    * Add incoming message to messages array for display.
    */
   private onPrivateMessage(message: Message): void {
-    this.messages.push(message)
+    if (message.sender.userID === this.friend.userID ||
+        message.sender.username === this.loggedInUsername) {
+      this.messages.push(message)
+    }
 
     // Manually detect changes in the DOM to automatically scroll down when needed.
     this.changeDetectorRef.detectChanges()

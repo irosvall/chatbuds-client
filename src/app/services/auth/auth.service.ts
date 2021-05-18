@@ -10,6 +10,7 @@ import { UserService } from '../user/user.service'
 import { SocketioService } from '../socketio/socketio.service'
 import { LoginUser } from 'src/app/models/login-user'
 import { RegisterUser } from 'src/app/models/register-user'
+import { PrivateMessagesService } from '../private-messages/private-messages.service'
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,7 @@ export class AuthService {
     private errorHandlerService: ErrorHandlerService,
     private userService: UserService,
     private socketService: SocketioService,
+    private privateMessagesService: PrivateMessagesService,
   ) { }
 
   /**
@@ -48,6 +50,9 @@ export class AuthService {
         tap(() => {
           this.userService.getAndDefineCurrentUser().subscribe()
           this.socketService.socket.connect()
+
+          // Makes the private messages service start listen for messages.
+          this.privateMessagesService.startListen()
         }),
         catchError(this.errorHandlerService.handleError<object>('login'))
       )
@@ -62,6 +67,7 @@ export class AuthService {
         tap(() => {
           this.userService.undefineUser()
           this.socketService.socket.disconnect()
+          this.privateMessagesService.resetMessages()
         }),
         catchError(this.errorHandlerService.handleError<object>('logout'))
       )
