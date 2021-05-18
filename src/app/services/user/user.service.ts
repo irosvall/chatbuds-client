@@ -100,12 +100,21 @@ export class UserService {
   /**
    * Declines a friend request from the user with the ID.
    */
-   declineFriendRequest(userID: string): Observable<any> {
+  declineFriendRequest(userID: string): Observable<any> {
     return this.http.patch<object>(`${env.API_GATEWAY_URL}api/v1/resource/user/declinefriend/${userID}`, JSON.stringify({}), this.httpOptionsWithHeaders)
       .pipe(
         tap(() => this.updateUser().subscribe()),
         catchError(this.errorHandlerService.handleError<object>('declineFriendRequest'))
       )
+  }
+
+  /**
+   * Returns the User object of a friend. If friend is not found undefined is returned.
+   *
+   * @param {string} id - The ID of the friend to get.
+   */
+  getfriend(id: string): User | undefined {
+    return this.friends.find((user: User) => user.userID === id)
   }
 
   get username(): string {

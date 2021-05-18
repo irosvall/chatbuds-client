@@ -6,7 +6,7 @@
   height: 100%;
 }
 
-#friend-list {
+app-friend-list {
   grid-area: friend-list;
 }
 

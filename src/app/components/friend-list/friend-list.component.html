@@ -3,7 +3,7 @@
 
   <ul>
     <li *ngFor="let friend of friends">
-      <div class="friend-in-list">{{friend.username}}</div>
+      <div class="friend-in-list" (click)="onSelectFriend(friend.userID)">{{friend.username}}</div>
     </li>
   </ul>
 </div>

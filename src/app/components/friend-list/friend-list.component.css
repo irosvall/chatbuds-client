@@ -23,4 +23,9 @@ h2 {
   border-color: #a8d4bf;
   max-width: 300px;
   margin: 2px auto;
+  cursor: pointer;
+}
+
+.friend-in-list:hover, .friend-in-list:active {
+  background-color: #e4f1eb;
 }

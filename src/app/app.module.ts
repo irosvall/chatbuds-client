@@ -38,8 +38,8 @@ import { PrivateChatComponent } from './components/private-chat/private-chat.com
     PublicChatComponent,
     HomeComponent,
     RandomChatComponent,
-    PrivateChatComponent,
     FriendListComponent,
+    PrivateChatComponent,
   ],
   imports: [
     BrowserModule,
