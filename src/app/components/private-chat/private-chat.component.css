@@ -1,0 +1,65 @@
+#private-chat {
+  position: relative;
+  max-width: 1000px;
+  margin-top: 2em;
+}
+
+#private-chat .chat {
+  margin: 0;
+}
+
+#private-chat h3 {
+  margin: 0;
+  padding: 0.5em 1em;
+}
+
+#private-chat-bar {
+  display: flex;
+  background-color: #ecb864;
+  align-items: center;
+}
+
+#private-chat-menu {
+  background-color: #f7d39a;
+  position: absolute;
+  top: 41.4px;
+  right: 0;
+}
+
+#private-chat-menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+#private-chat-menu li {
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+#private-chat-menu li:hover, #private-chat-menu li:active {
+  background-color: #ecb864;
+}
+
+#private-chat-menu li#delete-friend:hover, #private-chat-menu li#delete-friend:active {
+  background-color: #e05553;
+}
+
+#delete-friend-confirmation {
+  max-width: 400px;
+  text-align: center;
+  border: #e05553 solid 3px;
+  padding: 1em;
+  background-color: #fcf7ef;
+}
+
+#delete-friend-confirmation button {
+  display: inline-block;
+  margin-top: 2em;
+  margin-right: 1em;
+  font-size: 1.1em;
+}
+
+.hamburger-icon {
+  margin-left: auto;
+  margin-right: 1em;
+}

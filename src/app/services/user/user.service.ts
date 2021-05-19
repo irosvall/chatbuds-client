@@ -118,6 +118,17 @@ export class UserService {
   }
 
   /**
+   * Removes a friend with the user ID.
+   */
+  removeFriend(userID: string): Observable<any> {
+    return this.http.delete<object>(`${env.API_GATEWAY_URL}api/v1/resource/user/removeFriend/${userID}`, this.httpOptionsWithHeaders)
+      .pipe(
+        tap(() => this.updateUser().subscribe()),
+        catchError(this.errorHandlerService.handleError<object>('removeFriend'))
+      )
+  }
+
+  /**
    * Gets the current user.
    */
   get currentUser(): User {

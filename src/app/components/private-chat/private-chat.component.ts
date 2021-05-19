@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs'
 import { ErrorMessage } from 'src/app/models/error-message'
 import { Message } from 'src/app/models/message'
 import { User } from 'src/app/models/user'
+import { AlertService } from 'src/app/services/alert/alert.service'
 import { PrivateMessagesService } from 'src/app/services/private-messages/private-messages.service'
 import { SocketioService } from 'src/app/services/socketio/socketio.service'
 import { UserService } from 'src/app/services/user/user.service'
@@ -16,6 +17,9 @@ import { UserService } from 'src/app/services/user/user.service'
 })
 export class PrivateChatComponent implements OnInit, OnDestroy {
   chatForm: FormGroup
+  menuActivated: Boolean = false
+  isRemovingFriend: Boolean = false
+
   messages: Message[]
   errorMessage: ErrorMessage
   loggedInUsername: string
@@ -30,6 +34,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     private socketService: SocketioService,
     private privateMessagesService: PrivateMessagesService,
     private userService: UserService,
+    private alertService: AlertService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.friend = this.userService.getfriend(this.route.snapshot.paramMap.get('id'))
@@ -86,6 +91,46 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
         this.onSubmit()
       }
     }
+  }
+
+  /**
+   * Toggles the menu to show and hide.
+   */
+  onMenuClick(): void {
+    if (this.menuActivated) {
+      this.menuActivated = false
+    } else {
+      this.menuActivated = true
+    }
+  }
+
+  /**
+   * Triggers a confirmation menu to appear for removing the friend.
+   */
+  onRemoveFriend(): void {
+    this.isRemovingFriend = true
+    this.menuActivated = false
+  }
+
+  /**
+   * Cancels removing friend.
+   */
+  onCancelRemoveFriend(): void {
+    this.isRemovingFriend = false
+  }
+
+  /**
+   * Removes the friend.
+   */
+  onConfirmRemoveFriend(): void {
+    this.userService.removeFriend(this.friend.userID).subscribe(res => {
+      if (res.status === 204) {
+        this.alertService.successAlert('You are no longer friends with ' + this.friend.username)
+        this.router.navigate(['/'])
+      } else {
+        this.alertService.warningAlert('Something went wrong, try again')
+      }
+    })
   }
 
   /**

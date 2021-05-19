@@ -1,16 +1,36 @@
-<div class="chat">
-  <div class="chat-window" #chatWindow [scrollTop]="chatWindow.scrollHeight">
-    <div class="message" *ngFor="let message of messages" [ngClass]="{'current-user' : message.sender.username === loggedInUsername}">
-      <div class="message-username">{{message.sender.username}}</div>
-      <p>{{message.message}}</p>
-    </div>
-
-    <span class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</span>
+<div id="private-chat" class="center">
+  <div id="private-chat-bar">
+    <h3>{{friend.username}}</h3>
+    <div class="hamburger-icon" (click)="onMenuClick()"></div>
   </div>
 
-  <form class="chat-form" [formGroup]="chatForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
-    <label class="offScreen" for="message-input">Write your message here:</label>
-    <textarea class="message-input" name="message-input" formControlName="message" (keydown)="onKeydown($event)"></textarea>
-    <button class="message-send" type="submit" [disabled]="!chatForm.valid">Send</button>
-  </form>
+  <div class="chat">
+    <div class="chat-window" #chatWindow [scrollTop]="chatWindow.scrollHeight">
+      <div class="message" *ngFor="let message of messages" [ngClass]="{'current-user' : message.sender.username === loggedInUsername}">
+        <div class="message-username">{{message.sender.username}}</div>
+        <p>{{message.message}}</p>
+      </div>
+
+      <span class="errorMessage" *ngIf="errorMessage">{{errorMessage}}</span>
+    </div>
+
+    <form class="chat-form" [formGroup]="chatForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+      <label class="offScreen" for="message-input">Write your message here:</label>
+      <textarea class="message-input" name="message-input" formControlName="message" (keydown)="onKeydown($event)"></textarea>
+      <button class="message-send" type="submit" [disabled]="!chatForm.valid">Send</button>
+    </form>
+  </div>
+
+  <div id="private-chat-menu" *ngIf="menuActivated">
+    <ul>
+      <li id="delete-friend" (click)="onRemoveFriend()">Remove friend</li>
+    </ul>
+  </div>
+
+  <div id="delete-friend-confirmation" class="absolute-center" *ngIf="isRemovingFriend">
+    <h2>Removing friend</h2>
+    <p>Are you sure you want to delete <strong>{{friend.username}}</strong> as a friend?</p>
+    <button (click)="onConfirmRemoveFriend()">Remove</button>
+    <button (click)="onCancelRemoveFriend()">Cancel</button>
+  </div>
 </div>
