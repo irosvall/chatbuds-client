@@ -12,7 +12,6 @@ import { HomeComponent } from '../components/home/home.component'
 import { HomeGuard } from '../guards/home/home.guard'
 import { RandomChatComponent } from '../components/random-chat/random-chat.component'
 import { PrivateChatComponent } from '../components/private-chat/private-chat.component'
-import { FriendGuard } from '../guards/friend/friend.guard'
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [HomeGuard] },

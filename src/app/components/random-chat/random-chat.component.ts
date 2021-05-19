@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
+import { Subscription } from 'rxjs'
 import { ErrorMessage } from 'src/app/models/error-message'
 import { RandomMessage } from 'src/app/models/random-message'
 import { User } from 'src/app/models/user'
@@ -24,6 +25,11 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   private matchedUser: User
   private previousMatch: User
 
+  private validationErrorSubscription: Subscription
+  private chatLeftSubscription: Subscription
+  private chatMatchSubscription: Subscription
+  private randomMessageSubscription: Subscription
+
   constructor (
     private socketService: SocketioService,
     private userService: UserService,
@@ -33,13 +39,26 @@ export class RandomChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm()
-    this.socketService.socket.on('chatMatch', matchedUser => this.onChatMatch(matchedUser))
-    this.socketService.socket.on('randomChatLeave', () => this.onLeft())
-    this.socketService.socket.on('randomMessage', message => this.onRandomMessage(message))
-    this.socketService.socket.on('validationError', errorMessage => this.onValidationError(errorMessage))
+
+    // Listen to socket events.
+    this.chatMatchSubscription = this.socketService.onChatMatch()
+      .subscribe((matchedUser: User) => this.onChatMatch(matchedUser))
+
+    this.chatLeftSubscription = this.socketService.onChatLeft()
+      .subscribe(() => this.onLeft())
+
+    this.randomMessageSubscription = this.socketService.onRandomMessage()
+      .subscribe((message: RandomMessage) => this.onRandomMessage(message))
+
+    this.validationErrorSubscription = this.socketService.onValidationErrorMessage()
+      .subscribe((errorMessage: ErrorMessage) => this.onValidationError(errorMessage))
   }
 
   ngOnDestroy(): void {
+    this.randomMessageSubscription?.unsubscribe()
+    this.validationErrorSubscription?.unsubscribe()
+    this.chatMatchSubscription?.unsubscribe()
+    this.chatLeftSubscription?.unsubscribe()
     this.leaveChat()
   }
 

@@ -12,8 +12,11 @@ import { UserService } from 'src/app/services/user/user.service'
   styleUrls: ['./alert.component.css']
 })
 export class AlertComponent implements OnInit, OnDestroy {
-  private alertSubscription: Subscription;
   public alerts: Alert[] = []
+
+  private alertSubscription: Subscription
+  private newFriendSubscription: Subscription
+  private friendRequestSubscription: Subscription
 
   constructor (
     private alertService: AlertService,
@@ -27,12 +30,17 @@ export class AlertComponent implements OnInit, OnDestroy {
       .subscribe(alert => this.alerts.push(alert))
 
     // Listen to friend requests.
-    this.socketService.socket.on('newFriend', res => this.onNewFriend(res.user))
-    this.socketService.socket.on('friendRequest', res => this.alertService.friendRequestAlert(res.from, `${res.from.username} send a friend request`))
+    this.newFriendSubscription = this.socketService.onNewFriend()
+      .subscribe((user: User) => this.onNewFriend(user))
+
+    this.friendRequestSubscription = this.socketService.onFriendRequest()
+      .subscribe((user: User) => this.alertService.friendRequestAlert(user, `${user.username} sent a friend request`))
   }
 
   ngOnDestroy() {
-    this.alertSubscription.unsubscribe()
+    this.alertSubscription?.unsubscribe()
+    this.newFriendSubscription?.unsubscribe()
+    this.friendRequestSubscription?.unsubscribe()
   }
 
   /**

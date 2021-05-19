@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Subscription } from 'rxjs'
 import { ErrorMessage } from 'src/app/models/error-message'
 import { Message } from 'src/app/models/message'
 import { User } from 'src/app/models/user'
@@ -17,7 +18,11 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
   chatForm: FormGroup
   messages: Message[]
   errorMessage: ErrorMessage
+  loggedInUsername: string
   friend: User
+
+  private privateMessageSubscription: Subscription
+  private validationErrorSubscription: Subscription
 
   constructor (
     private route: ActivatedRoute,
@@ -36,20 +41,26 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     }
 
     this.messages = this.privateMessagesService.getPrivateMessages(this.friend.userID)
+    this.loggedInUsername = this.userService.username
   }
   
   ngOnInit(): void {
     this.initForm()
-    this.socketService.socket.on('privateMessage', message => this.onPrivateMessage(message))
-    this.socketService.socket.on('validationError', errorMessage => this.onValidationError(errorMessage))
+
+    // Listen to private messages and validation error messages from socket connection.
+    this.privateMessageSubscription = this.socketService.onPrivateMessage()
+      .subscribe((message: Message) => this.onPrivateMessage(message))
+
+    this.validationErrorSubscription = this.socketService.onValidationErrorMessage()
+      .subscribe((errorMessage: ErrorMessage) => this.onValidationError(errorMessage))
 
     // Manually detect changes in the DOM to automatically scroll down when needed.
     this.changeDetectorRef.detectChanges()
   }
 
   ngOnDestroy(): void {
-    this.socketService.socket.off('privateMessage')
-    this.socketService.socket.off('validationError')
+    this.privateMessageSubscription?.unsubscribe()
+    this.validationErrorSubscription?.unsubscribe()
   }
 
   /**
@@ -108,9 +119,5 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
 
   get message(): AbstractControl {
     return this.chatForm.get('message')
-  }
-
-  get loggedInUsername(): string {
-    return this.userService.username
   }
 }

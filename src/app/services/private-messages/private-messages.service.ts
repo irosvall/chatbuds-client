@@ -1,30 +1,24 @@
-import { Injectable } from '@angular/core';
-import { Message } from 'src/app/models/message';
-import { User } from 'src/app/models/user';
-import { SocketioService } from '../socketio/socketio.service';
-import { UserService } from '../user/user.service';
+import { Injectable } from '@angular/core'
+import { Message } from 'src/app/models/message'
+import { SocketioService } from '../socketio/socketio.service'
+import { UserService } from '../user/user.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrivateMessagesService {
   private privateMessages: { userID: Array<Message> } | {} = {}
-  private currentUser: User
 
   constructor (
     private socketService: SocketioService,
-    private userService: UserService
-  ) {
-    this.userService.getAndDefineCurrentUser().subscribe(user => {
-      this.currentUser = user
-    })
-  }
+    private userService: UserService,
+  ) { }
 
   /**
    * Start listening for private messages.
    */
   startListen() {
-    this.socketService.socket.on('privateMessage', message => this.onPrivateMessage(message))
+    this.socketService.onPrivateMessage().subscribe((message: Message) => this.onPrivateMessage(message))
   }
 
   /**
@@ -43,7 +37,7 @@ export class PrivateMessagesService {
     if (!this.privateMessages.hasOwnProperty(userID)) {
       return []
     }
-    return this.privateMessages[userID]
+    return Array.from(this.privateMessages[userID])
   }
 
   /**
@@ -52,7 +46,7 @@ export class PrivateMessagesService {
   private onPrivateMessage(message: Message) {
     const senderUserID = message.sender.userID
 
-    if (senderUserID === this.currentUser.userID) {
+    if (senderUserID === this.userService.userID) {
       const recieverUserID = message.to
 
       this.addMessage(message, recieverUserID)
