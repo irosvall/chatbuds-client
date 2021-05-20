@@ -12,6 +12,7 @@ import { HomeComponent } from '../components/home/home.component'
 import { HomeGuard } from '../guards/home/home.guard'
 import { RandomChatComponent } from '../components/random-chat/random-chat.component'
 import { PrivateChatComponent } from '../components/private-chat/private-chat.component'
+import { InternalServerErrorComponent } from '../components/errors/internal-server-error/internal-server-error.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [HomeGuard] },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'randomchat', component: RandomChatComponent, canActivate: [AuthGuard] },
   { path: 'chat/:id', component: PrivateChatComponent, canActivate: [AuthGuard] },
   { path: '404', component: PageNotFoundComponent },
+  { path: '500', component: InternalServerErrorComponent },
   { path: '**', component: PageNotFoundComponent },
 ]
 

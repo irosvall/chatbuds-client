@@ -82,7 +82,7 @@ export class UserService {
     return this.http.patch<object>(`${env.API_GATEWAY_URL}api/v1/resource/user/friendrequest/${userID}`, JSON.stringify({}), this.httpOptionsWithHeaders)
       .pipe(
         tap(() => this.updateUser().subscribe()),
-        catchError(this.errorHandlerService.handleError<object>('sendFriendRequest'))
+        catchError(this.errorHandlerService.handleError<object>())
       )
   }
 
@@ -93,7 +93,7 @@ export class UserService {
     return this.http.patch<object>(`${env.API_GATEWAY_URL}api/v1/resource/user/acceptfriend/${userID}`, JSON.stringify({}), this.httpOptionsWithHeaders)
       .pipe(
         tap(() => this.updateUser().subscribe()),
-        catchError(this.errorHandlerService.handleError<object>('acceptFriendRequest'))
+        catchError(this.errorHandlerService.handleError<object>())
       )
   }
 
@@ -104,7 +104,7 @@ export class UserService {
     return this.http.patch<object>(`${env.API_GATEWAY_URL}api/v1/resource/user/declinefriend/${userID}`, JSON.stringify({}), this.httpOptionsWithHeaders)
       .pipe(
         tap(() => this.updateUser().subscribe()),
-        catchError(this.errorHandlerService.handleError<object>('declineFriendRequest'))
+        catchError(this.errorHandlerService.handleError<object>())
       )
   }
 
@@ -124,7 +124,7 @@ export class UserService {
     return this.http.delete<object>(`${env.API_GATEWAY_URL}api/v1/resource/user/removeFriend/${userID}`, this.httpOptionsWithHeaders)
       .pipe(
         tap(() => this.updateUser().subscribe()),
-        catchError(this.errorHandlerService.handleError<object>('removeFriend'))
+        catchError(this.errorHandlerService.handleError<object>())
       )
   }
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing/app-routing.module'
 
@@ -21,6 +21,8 @@ import { HomeComponent } from './components/home/home.component'
 import { RandomChatComponent } from './components/random-chat/random-chat.component'
 import { FriendListComponent } from './components/friend-list/friend-list.component'
 import { PrivateChatComponent } from './components/private-chat/private-chat.component'
+import { HttpErrorInterceptor } from './interceptors/http-error/http-error.interceptor';
+import { InternalServerErrorComponent } from './components/errors/internal-server-error/internal-server-error.component'
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { PrivateChatComponent } from './components/private-chat/private-chat.com
     RandomChatComponent,
     FriendListComponent,
     PrivateChatComponent,
+    InternalServerErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,13 @@ import { PrivateChatComponent } from './components/private-chat/private-chat.com
     FormsModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

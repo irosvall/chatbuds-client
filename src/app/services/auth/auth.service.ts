@@ -54,7 +54,7 @@ export class AuthService {
           // Makes the private messages service start listen for messages.
           this.privateMessagesService.startListen()
         }),
-        catchError(this.errorHandlerService.handleError<object>('login'))
+        catchError(this.errorHandlerService.handleError<object>())
       )
   }
 
@@ -69,7 +69,7 @@ export class AuthService {
           this.socketService.socket.disconnect()
           this.privateMessagesService.resetMessages()
         }),
-        catchError(this.errorHandlerService.handleError<object>('logout'))
+        catchError(this.errorHandlerService.handleError<object>())
       )
   }
 
@@ -79,7 +79,7 @@ export class AuthService {
   register(user: RegisterUser): Observable<any> {
     return this.http.post<RegisterUser>(`${env.API_GATEWAY_URL}api/v1/auth/register`, JSON.stringify(user), this.httpOptionsWithHeaders)
       .pipe(
-        catchError(this.errorHandlerService.handleError<object>('register'))
+        catchError(this.errorHandlerService.handleError<object>())
       )
   }
 
