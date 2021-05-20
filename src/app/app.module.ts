@@ -21,9 +21,10 @@ import { HomeComponent } from './components/home/home.component'
 import { RandomChatComponent } from './components/random-chat/random-chat.component'
 import { FriendListComponent } from './components/friend-list/friend-list.component'
 import { PrivateChatComponent } from './components/private-chat/private-chat.component'
-import { HttpErrorInterceptor } from './interceptors/http-error/http-error.interceptor';
-import { InternalServerErrorComponent } from './components/errors/internal-server-error/internal-server-error.component';
+import { HttpErrorInterceptor } from './interceptors/http-error/http-error.interceptor'
+import { InternalServerErrorComponent } from './components/errors/internal-server-error/internal-server-error.component'
 import { FooterComponent } from './components/footer/footer.component'
+import { DeleteAccountComponent } from './components/delete-account/delete-account.component'
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { FooterComponent } from './components/footer/footer.component'
     PrivateChatComponent,
     InternalServerErrorComponent,
     FooterComponent,
+    DeleteAccountComponent,
   ],
   imports: [
     BrowserModule,

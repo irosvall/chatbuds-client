@@ -27,7 +27,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (error.status === 500) {
             this.router.navigate(['500'], { skipLocationChange: true })
           }
-          throw new Error(error.message)
+          throw error
         })
       )
   }

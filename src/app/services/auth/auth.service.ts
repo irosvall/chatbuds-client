@@ -84,6 +84,16 @@ export class AuthService {
   }
 
   /**
+   * Deletes the logged in user.
+   */
+   deleteUser(): Observable<any> {
+    return this.http.delete<RegisterUser>(`${env.API_GATEWAY_URL}api/v1/auth/delete`, this.httpOptionsWithHeaders)
+      .pipe(
+        catchError(this.errorHandlerService.handleError<object>())
+      )
+  }
+
+  /**
    * Checks if the user is logged in.
    */
   isLoggedIn(): Observable<boolean> {
