@@ -7,6 +7,7 @@ html {
 
 html, body {
   height: 100%;
+  color: #000000;
 }
 
 html, body, nav, header, main, aside, footer, section, div, figure, form {
@@ -16,18 +17,17 @@ html, body, nav, header, main, aside, footer, section, div, figure, form {
 }
 
 body {
+  position: relative;
   background-color: #f4f1de;
 }
 
-router-outlet {
+main {
+  min-height: calc(100% - 107.19px - 71.59px); /* Subtract height of footer and header */
   position: relative;
-  color: #000000;
-  padding: 10px 7px 20px 7px;
 }
 
 /*********** Font styles ************/
 h1, h2, h3 {
-  
   color: #313349;
 }
 
@@ -68,6 +68,15 @@ h1, h2, h3 {
   padding: 40px 60px;
   border: 5px solid #81b29a;
   background-color: #fcfbf8;
+}
+
+/************** Images ***************/
+.hamburger-icon {
+  background-image: url(./assets/images/hamburgermenu.png);
+  background-size: cover;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
 }
 
 /*********** Form styles *************/
@@ -129,6 +138,11 @@ a {
   text-decoration: none;
 }
 
+/*********** List styles ************/
+li {
+  list-style: none;
+}
+
 /*********** Chat styles ************/
 .chat {
   max-width: 1000px;
@@ -168,6 +182,10 @@ a {
   color: #404253;
   font-size: 0.9em;
   margin-left: 0.8em;
+}
+
+#public-chat .chat-window {
+  height: 40vh;
 }
 
 /* Display to the right for the user */

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { AuthService } from './services/auth/auth.service';
+import { PrivateMessagesService } from './services/private-messages/private-messages.service';
 import { SocketioService } from './services/socketio/socketio.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { SocketioService } from './services/socketio/socketio.service';
 export class AppComponent implements OnInit {
   constructor (
     private socketService: SocketioService,
+    private privateMessagesService: PrivateMessagesService,
     private authService: AuthService,
   ) { }
 
@@ -21,6 +23,9 @@ export class AppComponent implements OnInit {
     this.authService.isLoggedIn().subscribe(loggedIn => {
         if (loggedIn) {
           this.socketService.socket.connect()
+
+          // Makes the private messages service start listen for messages.
+          this.privateMessagesService.startListen()
         }
       })
   }

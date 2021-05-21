@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { Alert, FriendRequestAlert } from 'src/app/models/alert'
+import { User } from 'src/app/models/user'
 import { AlertService } from 'src/app/services/alert/alert.service'
 import { SocketioService } from 'src/app/services/socketio/socketio.service'
 import { UserService } from 'src/app/services/user/user.service'
@@ -11,8 +12,11 @@ import { UserService } from 'src/app/services/user/user.service'
   styleUrls: ['./alert.component.css']
 })
 export class AlertComponent implements OnInit, OnDestroy {
-  private alertSubscription: Subscription;
   public alerts: Alert[] = []
+
+  private alertSubscription: Subscription
+  private newFriendSubscription: Subscription
+  private friendRequestSubscription: Subscription
 
   constructor (
     private alertService: AlertService,
@@ -26,12 +30,25 @@ export class AlertComponent implements OnInit, OnDestroy {
       .subscribe(alert => this.alerts.push(alert))
 
     // Listen to friend requests.
-    this.socketService.socket.on('newFriend', res => this.alertService.successAlert(`You are now friends with ${res.user.username}`))
-    this.socketService.socket.on('friendRequest', res => this.alertService.friendRequestAlert(res.from, `${res.from.username} send a friend request`))
+    this.newFriendSubscription = this.socketService.onNewFriend()
+      .subscribe((user: User) => this.onNewFriend(user))
+
+    this.friendRequestSubscription = this.socketService.onFriendRequest()
+      .subscribe((user: User) => this.alertService.friendRequestAlert(user, `${user.username} sent a friend request`))
   }
 
   ngOnDestroy() {
-    this.alertSubscription.unsubscribe()
+    this.alertSubscription?.unsubscribe()
+    this.newFriendSubscription?.unsubscribe()
+    this.friendRequestSubscription?.unsubscribe()
+  }
+
+  /**
+   * Alert user if it has a new friend and update it's user information.
+   */
+  onNewFriend(user: User) {
+    this.alertService.successAlert(`You are now friends with ${user.username}`)
+    this.userService.updateUser().subscribe()
   }
 
   /**

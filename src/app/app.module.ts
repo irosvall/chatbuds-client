@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing/app-routing.module'
 
@@ -19,6 +19,12 @@ import { AlertComponent } from './components/alert/alert.component'
 import { PublicChatComponent } from './components/public-chat/public-chat.component'
 import { HomeComponent } from './components/home/home.component'
 import { RandomChatComponent } from './components/random-chat/random-chat.component'
+import { FriendListComponent } from './components/friend-list/friend-list.component'
+import { PrivateChatComponent } from './components/private-chat/private-chat.component'
+import { HttpErrorInterceptor } from './interceptors/http-error/http-error.interceptor'
+import { InternalServerErrorComponent } from './components/errors/internal-server-error/internal-server-error.component'
+import { FooterComponent } from './components/footer/footer.component'
+import { DeleteAccountComponent } from './components/delete-account/delete-account.component'
 
 @NgModule({
   declarations: [
@@ -36,6 +42,11 @@ import { RandomChatComponent } from './components/random-chat/random-chat.compon
     PublicChatComponent,
     HomeComponent,
     RandomChatComponent,
+    FriendListComponent,
+    PrivateChatComponent,
+    InternalServerErrorComponent,
+    FooterComponent,
+    DeleteAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +55,13 @@ import { RandomChatComponent } from './components/random-chat/random-chat.compon
     FormsModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,15 +2,16 @@
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-areas: 
-  "friends-list home-main";
-  justify-items: center;
+  "friend-list home-main";
+  height: 100%;
 }
 
-#friends-list {
-  grid-area: friends-list;
+app-friend-list {
+  grid-area: friend-list;
 }
 
 #home-main {
   grid-area: home-main;
+  margin-top: 2em;
   margin-bottom: 2em;
 }

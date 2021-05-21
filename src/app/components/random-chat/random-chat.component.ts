@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core'
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
+import { Subscription } from 'rxjs'
 import { ErrorMessage } from 'src/app/models/error-message'
-import { Message } from 'src/app/models/message'
+import { RandomMessage } from 'src/app/models/random-message'
 import { User } from 'src/app/models/user'
 import { AlertService } from 'src/app/services/alert/alert.service'
 import { SocketioService } from 'src/app/services/socketio/socketio.service'
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user/user.service'
 })
 export class RandomChatComponent implements OnInit, OnDestroy {
   public chatForm: FormGroup
-  public messages: Message[] = []
+  public messages: RandomMessage[] = []
   public errorMessage: ErrorMessage
 
   // States to update the template depending on.
@@ -24,6 +25,11 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   private matchedUser: User
   private previousMatch: User
 
+  private validationErrorSubscription: Subscription
+  private chatLeftSubscription: Subscription
+  private chatMatchSubscription: Subscription
+  private randomMessageSubscription: Subscription
+
   constructor (
     private socketService: SocketioService,
     private userService: UserService,
@@ -33,13 +39,26 @@ export class RandomChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm()
-    this.socketService.socket.on('chatMatch', matchedUser => this.onChatMatch(matchedUser))
-    this.socketService.socket.on('randomChatLeave', () => this.onLeft())
-    this.socketService.socket.on('privateMessage', message => this.onPrivateMessage(message))
-    this.socketService.socket.on('validationError', errorMessage => this.onValidationError(errorMessage))
+
+    // Listen to socket events.
+    this.chatMatchSubscription = this.socketService.onChatMatch()
+      .subscribe((matchedUser: User) => this.onChatMatch(matchedUser))
+
+    this.chatLeftSubscription = this.socketService.onChatLeft()
+      .subscribe(() => this.onLeft())
+
+    this.randomMessageSubscription = this.socketService.onRandomMessage()
+      .subscribe((message: RandomMessage) => this.onRandomMessage(message))
+
+    this.validationErrorSubscription = this.socketService.onValidationErrorMessage()
+      .subscribe((errorMessage: ErrorMessage) => this.onValidationError(errorMessage))
   }
 
   ngOnDestroy(): void {
+    this.randomMessageSubscription?.unsubscribe()
+    this.validationErrorSubscription?.unsubscribe()
+    this.chatMatchSubscription?.unsubscribe()
+    this.chatLeftSubscription?.unsubscribe()
     this.leaveChat()
   }
 
@@ -61,7 +80,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
    * Sends message.
    */
   onSubmit(): void {
-    this.socketService.socket.emit('privateMessage', { data: { message: this.message.value }, to: this.matchedUser.userID })
+    this.socketService.socket.emit('randomMessage', { data: { message: this.message.value }, to: this.matchedUser.userID })
     this.resetChat()
   }
 
@@ -130,7 +149,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   /**
    * Add incoming message to messages array for display.
    */
-  private onPrivateMessage(message: Message): void {
+  private onRandomMessage(message: RandomMessage): void {
     this.messages.push(message)
 
     // Manually detect changes in the DOM to automatically scroll down when needed.
