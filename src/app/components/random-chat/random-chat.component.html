@@ -10,7 +10,7 @@
 <div id="random-chat" class="center" *ngIf="hasMatch">
   <div id="random-chat-options">
     <button (click)="onSearchNew()">New chatting buddy</button>
-    <button (click)="onAddFriend()">Add friend</button>
+    <button *ngIf="!isFriends" (click)="onAddFriend()">Add friend</button>
   </div>
 
   <div class="chat">
