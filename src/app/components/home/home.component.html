@@ -1,10 +1,18 @@
 <div class="home-container">
   <app-friend-list></app-friend-list>
 
-  <div id="home-main" class="center">
-    <app-public-chat id="public-chat" messageType="publicMessage"></app-public-chat>
+  <div id="home-main">
+    <div class="transparent-white-background">
+      <p class="slogan">Wanna find a new chatting buddy?</p>
+      <p id="random-chat-describtion">
+        By starting a chatting session we will pair you with another user. 
+        <br> If you get along well then you can choose to become friends and chat further, <br> if not then you can at any point find new chatting buddies.
+      </p>
+      
+      <button id="find-chatbuddy-button" routerLink="/randomchat">Find chatbuddy</button>
+    </div>
 
-    <p>Wanna find a new chatting buddy? Click on find chatbuddy to get into a private chat session with another person:</p>
-    <button class="center" routerLink="/randomchat">Find chatbuddy</button>
+    <h1>Public chat</h1>
+    <app-public-chat id="public-chat" messageType="publicMessage"></app-public-chat>
   </div>
 </div>

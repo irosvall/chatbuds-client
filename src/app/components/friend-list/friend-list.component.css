@@ -6,7 +6,7 @@ h2 {
 }
 
 #friend-list {
-  background-color: #a8d4bf;
+  background-color: #57cfdf;
   height: 100%;
 }
 
@@ -16,16 +16,17 @@ h2 {
 }
 
 .friend-in-list {
-  background-color: #cce6d9;
+  background-color: #f5feff;
   padding: 0.8em 0.5em;
-  border-left: 2px solid;
-  border-right: 2px solid;
-  border-color: #a8d4bf;
+  border-left: 4px solid;
+  border-right: 4px solid;
+  border-color: #57cfdf;
+  border-radius: 10px;
   max-width: 300px;
-  margin: 2px auto;
+  margin: 5px auto;
   cursor: pointer;
 }
 
 .friend-in-list:hover, .friend-in-list:active {
-  background-color: #e4f1eb;
+  background-color: #d5f9fd;
 }

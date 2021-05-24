@@ -15,14 +15,15 @@
 
 #private-chat-bar {
   display: flex;
-  background-color: #ecb864;
+  background-color: #57cfdf;
   align-items: center;
+  height: 44px;
 }
 
 #private-chat-menu {
-  background-color: #f7d39a;
+  background-color: #77e3f1;
   position: absolute;
-  top: 41.4px;
+  top: 44px;
   right: 0;
 }
 
@@ -37,19 +38,19 @@
 }
 
 #private-chat-menu li:hover, #private-chat-menu li:active {
-  background-color: #ecb864;
+  background-color: #9aecf7;
 }
 
 #private-chat-menu li#delete-friend:hover, #private-chat-menu li#delete-friend:active {
-  background-color: #e05553;
+  background-color: #f75b59;
 }
 
 #delete-friend-confirmation {
   max-width: 400px;
   text-align: center;
-  border: #e05553 solid 3px;
+  border: #f75b59 solid 3px;
   padding: 1em;
-  background-color: #fcf7ef;
+  background-color: #ffffff;
 }
 
 #delete-friend-confirmation button {
