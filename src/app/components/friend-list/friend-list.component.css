@@ -6,7 +6,7 @@ h2 {
 }
 
 #friend-list {
-  background-color: #57cfdf;
+  background-color: #57c4df;
   height: 100%;
 }
 
@@ -20,7 +20,7 @@ h2 {
   padding: 0.8em 0.5em;
   border-left: 4px solid;
   border-right: 4px solid;
-  border-color: #57cfdf;
+  border-color: #57c4df;
   border-radius: 10px;
   max-width: 300px;
   margin: 5px auto;

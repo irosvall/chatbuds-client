@@ -18,6 +18,7 @@ export class SocketioService {
   private chatLeft: Subject<undefined> = new Subject<undefined>()
   private newFriend: Subject<User> = new Subject<User>()
   private friendRequest: Subject<User> = new Subject<User>()
+  private removeFriend: Subject<User> = new Subject<User>()
 
   constructor () { 
   }
@@ -40,6 +41,7 @@ export class SocketioService {
     this._socket.on('randomChatLeave', () => this.onSocketChatLeft())
     this._socket.on('newFriend', res => this.onSocketNewFriend(res.user))
     this._socket.on('friendRequest', res => this.onSocketFriendRequest(res.from))
+    this._socket.on('removeFriend', res => this.onSocketRemoveFriend(res.user))
   }
 
   /**
@@ -91,6 +93,13 @@ export class SocketioService {
     return this.friendRequest.asObservable()
   }
 
+  /**
+   * Returns observable for the removed friend.
+   */
+  onRemoveFriend(): Observable<User> {
+    return this.removeFriend.asObservable()
+  }
+
   private onSocketPrivateMessage(message: Message) {
     this.privateMessage.next(message)
   }
@@ -117,6 +126,10 @@ export class SocketioService {
 
   private onSocketFriendRequest(user: User) {
     this.friendRequest.next(user)
+  }
+
+  private onSocketRemoveFriend(user: User) {
+    this.removeFriend.next(user)
   }
 
   get socket(): Socket {

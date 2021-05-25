@@ -160,6 +160,10 @@ export class UserService {
    * Gets the current user's friends.
    */
   get friends(): Array<User> {
-    return this.currentUser.friends
+    const friends = this.currentUser.friends
+    if (friends) {
+      return Array.from(friends)
+    }
+    return []
   }
 }
