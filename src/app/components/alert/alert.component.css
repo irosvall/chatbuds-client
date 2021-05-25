@@ -1,19 +1,28 @@
+:host {
+  position: absolute;
+  left: 50%;
+  z-index: 1000;
+  transform: translate(-50% , 0);
+}
+
 .alert {
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
-  max-width: calc(max-content + 3em);
+  width: inherit;
+  margin: 0 auto;
 }
 
 p {
   display: inline;
   text-align: center;
   margin: 0;
-  margin-left: auto;
+  padding: 0.5em 1em
 }
 
-button {
+.close {
+  background-color: transparent;
   padding: 0 10px;
   margin: 0;
   margin-left: auto;
@@ -23,14 +32,16 @@ button {
 
 .friend-request div button {
   display: inline-block;
+  padding: 0.2em 0.4em;
+  margin: 0.2em;
 }
 
 .success {
-  background-color: #52c586;
+  background-color: #26DDA1;
 }
 
 .warning {
-  background-color: #e04a48;
+  background-color: #e94745;
 }
 
 .info {
@@ -38,5 +49,6 @@ button {
 }
 
 .friend-request {
-  background-color: #e4d871;
+  background-color: #6DD2E0;
+  border: 1px solid #206f83;
 }

@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
     const subscription = this.authService.login(this.loginForm.value)
       .subscribe((res) => {
         if (res.status === 200) {
-          this.alertService.successAlert('You are now logged in')
           this.router.navigate([''])
         } else if (res.status === 401) {
           this.alertService.warningAlert('Email or password is wrong')
