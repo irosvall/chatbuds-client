@@ -12,13 +12,14 @@ app-friend-list {
 }
 
 p.slogan {
-  color: #82e7f5;
+  color: #7dedfc;
   font-weight: 700;
   font-size: 1.2em;
   letter-spacing: 0.1em;
 }
 
-.transparent-white-background {
+#random-chat-describtion-container {
+  background-color: #f4feff1c;
   margin-left: auto;
   padding: 0.2em 1em;
   max-width: max-content;

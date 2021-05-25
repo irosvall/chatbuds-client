@@ -1,9 +1,10 @@
-.transparent-white-background {
+.contact-container {
+  background-color: #f9feff;
   text-align: center;
   width: max-content;
   padding: 2em;
   border-radius: 15px;
-  margin-top: 2em;
+  margin-top: 4em;
 }
 
 h1 {

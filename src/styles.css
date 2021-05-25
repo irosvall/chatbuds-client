@@ -19,7 +19,7 @@ html, body, nav, header, main, aside, footer, section, div, figure, form {
 body {
   position: relative;
   background: #d9edfd;
-  background: linear-gradient(180deg, #0065b8 94.06px,  #fbfeff 80%);
+  background: linear-gradient(180deg, #0065b8 94.06px,  #fbfeff 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -31,7 +31,7 @@ main {
 
 /*********** Font styles ************/
 h1, h2, h3 {
-  color: #313349;
+  color: #112a57;
 }
 
 /*********** General styles ***********/
@@ -74,7 +74,7 @@ h1, h2, h3 {
 }
 
 .transparent-white-background {
-  background-color: #ffffff17;
+  background-color: #d5fafd31;
 }
 
 /************** Images ***************/
@@ -239,6 +239,7 @@ li {
   background-color: #0e72c4;
   font-size: 1.2em;
   border-collapse: collapse;
+  border-radius: 0;
 }
 
 .message-send:hover, .message-send:active {

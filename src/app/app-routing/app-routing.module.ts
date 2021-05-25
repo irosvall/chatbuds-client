@@ -15,9 +15,11 @@ import { PrivateChatComponent } from '../components/private-chat/private-chat.co
 import { InternalServerErrorComponent } from '../components/errors/internal-server-error/internal-server-error.component'
 import { DeleteAccountComponent } from '../components/delete-account/delete-account.component'
 import { ContactComponent } from '../components/contact/contact.component'
+import { InformationComponent } from '../components/information/information.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [HomeGuard] },
+  { path: 'information', component: InformationComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'welcome', component: WelcomeComponent, canActivate: [AnonymousGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AnonymousGuard] },
