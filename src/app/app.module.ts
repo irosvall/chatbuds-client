@@ -25,6 +25,7 @@ import { HttpErrorInterceptor } from './interceptors/http-error/http-error.inter
 import { InternalServerErrorComponent } from './components/errors/internal-server-error/internal-server-error.component'
 import { FooterComponent } from './components/footer/footer.component'
 import { DeleteAccountComponent } from './components/delete-account/delete-account.component'
+import { ContactComponent } from './components/contact/contact.component'
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { DeleteAccountComponent } from './components/delete-account/delete-accou
     InternalServerErrorComponent,
     FooterComponent,
     DeleteAccountComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

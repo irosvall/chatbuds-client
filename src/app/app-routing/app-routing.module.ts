@@ -14,9 +14,11 @@ import { RandomChatComponent } from '../components/random-chat/random-chat.compo
 import { PrivateChatComponent } from '../components/private-chat/private-chat.component'
 import { InternalServerErrorComponent } from '../components/errors/internal-server-error/internal-server-error.component'
 import { DeleteAccountComponent } from '../components/delete-account/delete-account.component'
+import { ContactComponent } from '../components/contact/contact.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [HomeGuard] },
+  { path: 'contact', component: ContactComponent },
   { path: 'welcome', component: WelcomeComponent, canActivate: [AnonymousGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AnonymousGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard] },
