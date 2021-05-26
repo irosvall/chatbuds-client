@@ -13,6 +13,7 @@ export class SocketioService {
   private _socket: Socket
   private privateMessage: Subject<Message> = new Subject<Message>()
   private randomMessage: Subject<Message> = new Subject<Message>()
+  private publicMessage: Subject<Message> = new Subject<Message>()
   private validationErrorMessage: Subject<ErrorMessage> = new Subject<ErrorMessage>()
   private chatMatch: Subject<User> = new Subject<User>()
   private chatLeft: Subject<undefined> = new Subject<undefined>()
@@ -35,6 +36,7 @@ export class SocketioService {
     this._socket = io(env.DOMAIN_NAME, socketOptions)
 
     this._socket.on('privateMessage', message => this.onSocketPrivateMessage(message))
+    this._socket.on('publicMessage', message => this.onSocketPublicMessage(message))
     this._socket.on('randomMessage', message => this.onSocketRandomMessage(message))
     this._socket.on('validationError', errorMessage => this.onSocketValidationError(errorMessage))
     this._socket.on('chatMatch', matchedUser => this.onSocketChatMatch(matchedUser))
@@ -56,6 +58,13 @@ export class SocketioService {
    */
   onRandomMessage(): Observable<Message> {
     return this.randomMessage.asObservable()
+  }
+
+  /**
+   * Returns observable for public messages.
+   */
+   onPublicMessage(): Observable<Message> {
+    return this.publicMessage.asObservable()
   }
 
   /**
@@ -106,6 +115,10 @@ export class SocketioService {
 
   private onSocketRandomMessage(message: Message) {
     this.randomMessage.next(message)
+  }
+
+  private onSocketPublicMessage(message: Message) {
+    this.publicMessage.next(message)
   }
 
   private onSocketValidationError(errorMessage: ErrorMessage) {
