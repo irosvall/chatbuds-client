@@ -134,7 +134,6 @@ export class UserService {
   get currentUser(): User {
     if (!this._currentUser) {
       this.updateUser().subscribe((user: User) => {
-        this.isLoggedIn.next(true)
         return user
       })
     } else {
@@ -160,7 +159,7 @@ export class UserService {
    * Gets the current user's friends.
    */
   get friends(): Array<User> {
-    const friends = this.currentUser.friends
+    const friends = this.currentUser?.friends
     if (friends) {
       return Array.from(friends)
     }

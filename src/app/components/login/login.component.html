@@ -2,7 +2,7 @@
 <div class="wrapper-round absolute-center">
   <h1>Login</h1>
   
-  <form [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-section">
       <label for="email">Email:</label>
       <input id="email" type="email" formControlName="email" required>

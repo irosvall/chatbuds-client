@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RandomChatComponent } from './random-chat.component';
 
 describe('RandomChatComponent', () => {
@@ -8,7 +8,8 @@ describe('RandomChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RandomChatComponent ]
+      declarations: [ RandomChatComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });
