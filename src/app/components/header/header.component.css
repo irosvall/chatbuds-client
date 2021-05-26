@@ -1,28 +1,31 @@
 header {
   display: grid;
-  grid-template-columns: 2fr 1fr;
   grid-template-areas: 
   "home-link auth-bar";
   padding: 1em;
-  background-color: #81b29a;
+  background-color: #0065b8;
+  justify-content: space-between;
 }
 
 #home-link {
   grid-area: home-link;
-  font-size: 2em;
+  margin: 0.2em 0;
+  margin-left: 0.5em;
+  font-size: 2.2em;
   font-weight: bold;
 }
 
 a:link, a:visited {
-  color: #551A8B;
+  color: #ecfdff;
 }
 
 a:hover, a:active {
-  color: #70439b;
+  color: #ffffff;
 }
 
 #auth-bar {
   grid-area: auth-bar;
+  margin-right: 2em;
 }
 
 nav ul {
@@ -36,9 +39,15 @@ nav li {
 }
 
 nav li a {
+  box-sizing: border-box;
   font-size: 1.1em;
-  background-color: #81b29a;
+  background-color: #0065b8;
   margin-left: 0.5em;
   display: inline-block;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.5em;
+  border-bottom: 1px solid #0065b8;
+}
+
+nav li a:hover, nav li a:active {
+  border-bottom: 1px solid #ffffff;
 }

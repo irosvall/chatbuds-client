@@ -34,7 +34,7 @@ export class AlertComponent implements OnInit, OnDestroy {
       .subscribe((user: User) => this.onNewFriend(user))
 
     this.friendRequestSubscription = this.socketService.onFriendRequest()
-      .subscribe((user: User) => this.alertService.friendRequestAlert(user, `${user.username} sent a friend request`))
+      .subscribe((user: User) => this.alertService.friendRequestAlert(user, `${user.username} sent a friend request:`))
   }
 
   ngOnDestroy() {

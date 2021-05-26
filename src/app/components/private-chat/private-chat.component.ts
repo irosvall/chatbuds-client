@@ -48,7 +48,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     this.messages = this.privateMessagesService.getPrivateMessages(this.friend.userID)
     this.loggedInUsername = this.userService.username
   }
-  
+
   ngOnInit(): void {
     this.initForm()
 
@@ -123,11 +123,18 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
    * Removes the friend.
    */
   onConfirmRemoveFriend(): void {
-    this.userService.removeFriend(this.friend.userID).subscribe(res => {
-      if (res.status === 204) {
-        this.alertService.successAlert('You are no longer friends with ' + this.friend.username)
-        this.router.navigate(['/'])
-      } else {
+    this.userService.removeFriend(this.friend.userID).subscribe({
+      next: res => {
+        if (res.status === 204) {
+          this.userService.updateUser().subscribe(() => {
+            this.alertService.successAlert('You are no longer friends with ' + this.friend.username)
+            this.router.navigate(['/'])
+           })
+        } else {
+          this.alertService.warningAlert('Something went wrong, try again')
+        }
+      },
+      error: () => {
         this.alertService.warningAlert('Something went wrong, try again')
       }
     })
@@ -138,7 +145,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
    */
   private onPrivateMessage(message: Message): void {
     if (message.sender.userID === this.friend.userID ||
-        message.sender.username === this.loggedInUsername) {
+      message.sender.username === this.loggedInUsername) {
       this.messages.push(message)
     }
 

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PublicChatComponent } from './public-chat.component';
 
 describe('PublicChatComponent', () => {
@@ -8,7 +8,8 @@ describe('PublicChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PublicChatComponent ]
+      declarations: [ PublicChatComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });

@@ -1,8 +1,8 @@
 <div class="filler"></div>
-<div class="wrapper-round center">
+<div class="wrapper-round absolute-center">
   <h1>Register</h1>
 
-  <form class="center" [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+  <form class="center" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-section">
       <label for="email">Email:</label>
       <input id="email" type="email" formControlName="email" required>

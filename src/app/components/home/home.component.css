@@ -7,11 +7,35 @@
 }
 
 app-friend-list {
+  margin-top: 2em;
   grid-area: friend-list;
+}
+
+p.slogan {
+  color: #7dedfc;
+  font-weight: 700;
+  font-size: 1.2em;
+  letter-spacing: 0.1em;
+}
+
+#random-chat-describtion-container {
+  background-color: #f4feff1c;
+  margin-left: auto;
+  padding: 0.2em 1em;
+  max-width: max-content;
 }
 
 #home-main {
   grid-area: home-main;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin: 2em 6%;
+}
+
+#random-chat-describtion {
+  display: inline-block;
+  line-height: 2em;
+  margin-right: 6em;
+}
+
+#find-chatbuddy-button {
+  display: inline-block;
 }

@@ -1,0 +1,63 @@
+<div class="center information-container">
+  <h1>About</h1>
+
+  <div>
+    <p>This website is a student project made 2021 first year at Linnaeus University by Ida Rosvall.</p>
+    <p>
+      The project was made as a challenge for me to learn or get comfortable with new techniques such as Angular and socket.io.
+      My main focus was on the backend because I made the decision to learn and create my own first microservice-architecture, though a small one it was a good learning experience and challenging to make work.
+    </p>
+    <p>
+      My hope with this project was that it would become a nice environment to meet new friends. By not seeing what each person looks like, where they come from etc. makes it a nice experience to fully dig into new friendships without eyes of prejudice.
+    </p>
+    <p>If there are any questions don't hesitate to contact me at: ir222gn@student.lnu.se.</p>
+  </div>
+
+  <h1>Data we store</h1>
+  <h2>
+    Data stored peristent at ChatBuds
+  </h2>
+  <p>
+    Data stored peristent, meaning stored for all time till account is deleted or database is shut down or reseted are:
+  </p>
+    <ul>
+      <li>
+        Infromation shared during registration: Email, username, password. Though password is hashed and salted meaning it can never be read back and therefore safe.
+      </li>
+      <li>
+        Which users you are friends with.
+      </li>
+      <li>
+        Sent and recieved friend requests.
+      </li>
+      <li>
+        <i>Cookie:</i> The cookie is created during login and is valid for around 8,2 hours before it's not valid and the user needs to log in again.
+      </li>
+    </ul>
+  
+  <h2>
+    Data stored non-peristent at ChatBuds
+  </h2>
+  <p>
+    Data stored non-peristent, meaning stored for a limited amount of time are:
+  </p>
+  <ul>
+    <li>
+      Private messages are stored on the client up till 300 messages per friend until the user refreshes the page. This makes it possible to go between friends and chat without messages dissapearing. It is not viewable by other users.
+    </li>
+    <li>
+      Your socket connection is stored non-persistant in the process of searching for a chatting buddy. It is removed when leaving that page or when a chatting buddy is found.
+    </li>
+  </ul>
+
+  <h2>Cookie information</h2>
+  <p>
+    A cookie is used on the website for the server to remember which user is making the requests, to keep the user logged-in for example. The cookie is created during login and is valid for around 8,2 hours before it is not valid and the user needs to log in again. The cookie is also not valid anymore when the user logs out.
+  </p>
+  <p>
+    The cookie holds nothing stored on itself except an unique identifier that you are the one making the requests. It is not used for marketing or statistics, and no third party is involved.
+  </p>
+  <p>
+    The cookie used in ChatBuds is named chatbuds-session.
+  </p>
+</div>

@@ -7,18 +7,18 @@
   display: flex;
   justify-content: flex-end;
   gap: 2em;
-  margin-right: 1em;
 }
 
 #random-chat-options button {
   font-size: 1.1em;
-  background-color: #98c9b1;
+  background-color: #57cfdf;
   padding: 0.3em 1em;
   cursor: pointer;
   border-radius: 1em 0;
+  border-color: #d2faff;
   border-bottom: none;
 }
 
 #random-chat-options button:hover, #random-chat-options button:active {
-  background-color: #adddc6;
+  background-color: #8de6f1;
 }

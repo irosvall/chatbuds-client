@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs/operators';
-import { AuthService } from './services/auth/auth.service';
-import { PrivateMessagesService } from './services/private-messages/private-messages.service';
-import { SocketioService } from './services/socketio/socketio.service';
+import { Component, OnInit } from '@angular/core'
+import { AuthService } from './services/auth/auth.service'
+import { PrivateMessagesService } from './services/private-messages/private-messages.service'
+import { SocketioService } from './services/socketio/socketio.service'
 
 @Component({
   selector: 'app-root',

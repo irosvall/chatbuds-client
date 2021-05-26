@@ -21,6 +21,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   public isSearching: Boolean = false
   public hasMatch: Boolean = false
   public isLeft: Boolean = false
+  public isFriends: Boolean = false
 
   private matchedUser: User
   private previousMatch: User
@@ -29,6 +30,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
   private chatLeftSubscription: Subscription
   private chatMatchSubscription: Subscription
   private randomMessageSubscription: Subscription
+  private newFriendSubscription: Subscription
 
   constructor (
     private socketService: SocketioService,
@@ -52,6 +54,9 @@ export class RandomChatComponent implements OnInit, OnDestroy {
 
     this.validationErrorSubscription = this.socketService.onValidationErrorMessage()
       .subscribe((errorMessage: ErrorMessage) => this.onValidationError(errorMessage))
+
+    this.newFriendSubscription = this.socketService.onNewFriend()
+      .subscribe((user: User) => this.onNewFriend(user))
   }
 
   ngOnDestroy(): void {
@@ -59,6 +64,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
     this.validationErrorSubscription?.unsubscribe()
     this.chatMatchSubscription?.unsubscribe()
     this.chatLeftSubscription?.unsubscribe()
+    this.newFriendSubscription?.unsubscribe()
     this.leaveChat()
   }
 
@@ -93,6 +99,7 @@ export class RandomChatComponent implements OnInit, OnDestroy {
     }
     this.previousMatch = this.matchedUser
     this.matchedUser = undefined
+    this.isFriends = false
     this.onStartSearch()
   }
 
@@ -136,6 +143,10 @@ export class RandomChatComponent implements OnInit, OnDestroy {
     this.matchedUser = matchedUser
     this.isSearching = false
     this.hasMatch = true
+
+    if (this.userService.getfriend(this.matchedUser.userID)) {
+      this.isFriends = true
+    }
   }
 
   /**
@@ -161,6 +172,15 @@ export class RandomChatComponent implements OnInit, OnDestroy {
    */
   private onValidationError(message: ErrorMessage): void {
     this.errorMessage = message
+  }
+
+  /**
+   * If the new friend is the current chatbuddy then hide the add friend button.
+   */
+  private onNewFriend(user: User): void {
+    if (user.userID === this.matchedUser.userID) {
+      this.isFriends = true
+    }
   }
 
   /**

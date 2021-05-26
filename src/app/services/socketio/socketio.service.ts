@@ -13,11 +13,13 @@ export class SocketioService {
   private _socket: Socket
   private privateMessage: Subject<Message> = new Subject<Message>()
   private randomMessage: Subject<Message> = new Subject<Message>()
+  private publicMessage: Subject<Message> = new Subject<Message>()
   private validationErrorMessage: Subject<ErrorMessage> = new Subject<ErrorMessage>()
   private chatMatch: Subject<User> = new Subject<User>()
   private chatLeft: Subject<undefined> = new Subject<undefined>()
   private newFriend: Subject<User> = new Subject<User>()
   private friendRequest: Subject<User> = new Subject<User>()
+  private removeFriend: Subject<User> = new Subject<User>()
 
   constructor () { 
   }
@@ -34,12 +36,14 @@ export class SocketioService {
     this._socket = io(env.DOMAIN_NAME, socketOptions)
 
     this._socket.on('privateMessage', message => this.onSocketPrivateMessage(message))
+    this._socket.on('publicMessage', message => this.onSocketPublicMessage(message))
     this._socket.on('randomMessage', message => this.onSocketRandomMessage(message))
     this._socket.on('validationError', errorMessage => this.onSocketValidationError(errorMessage))
     this._socket.on('chatMatch', matchedUser => this.onSocketChatMatch(matchedUser))
     this._socket.on('randomChatLeave', () => this.onSocketChatLeft())
     this._socket.on('newFriend', res => this.onSocketNewFriend(res.user))
     this._socket.on('friendRequest', res => this.onSocketFriendRequest(res.from))
+    this._socket.on('removeFriend', res => this.onSocketRemoveFriend(res.user))
   }
 
   /**
@@ -54,6 +58,13 @@ export class SocketioService {
    */
   onRandomMessage(): Observable<Message> {
     return this.randomMessage.asObservable()
+  }
+
+  /**
+   * Returns observable for public messages.
+   */
+   onPublicMessage(): Observable<Message> {
+    return this.publicMessage.asObservable()
   }
 
   /**
@@ -91,12 +102,23 @@ export class SocketioService {
     return this.friendRequest.asObservable()
   }
 
+  /**
+   * Returns observable for the removed friend.
+   */
+  onRemoveFriend(): Observable<User> {
+    return this.removeFriend.asObservable()
+  }
+
   private onSocketPrivateMessage(message: Message) {
     this.privateMessage.next(message)
   }
 
   private onSocketRandomMessage(message: Message) {
     this.randomMessage.next(message)
+  }
+
+  private onSocketPublicMessage(message: Message) {
+    this.publicMessage.next(message)
   }
 
   private onSocketValidationError(errorMessage: ErrorMessage) {
@@ -117,6 +139,10 @@ export class SocketioService {
 
   private onSocketFriendRequest(user: User) {
     this.friendRequest.next(user)
+  }
+
+  private onSocketRemoveFriend(user: User) {
+    this.removeFriend.next(user)
   }
 
   get socket(): Socket {

@@ -2,7 +2,7 @@
 
 html {
   font-size: 16px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Noto Sans", Helvetica, sans-serif, Arial;
 }
 
 html, body {
@@ -18,17 +18,20 @@ html, body, nav, header, main, aside, footer, section, div, figure, form {
 
 body {
   position: relative;
-  background-color: #f4f1de;
+  background: #d9edfd;
+  background: linear-gradient(180deg, #0065b8 94.06px,  #fbfeff 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 main {
-  min-height: calc(100% - 107.19px - 71.59px); /* Subtract height of footer and header */
+  min-height: calc(100% - 86.06px); /* Subtract height of header */
   position: relative;
 }
 
 /*********** Font styles ************/
 h1, h2, h3 {
-  color: #313349;
+  color: #112a57;
 }
 
 /*********** General styles ***********/
@@ -40,12 +43,12 @@ h1, h2, h3 {
 .absolute-center {
   position: absolute;
   width: max-content;
-  top: 50%;
+  top: calc(50% - 88.06px);
   left:0;
   right:0;
   margin-left:auto;
   margin-right:auto;
-  transform: translate(0, -50%);
+  transform: translate(0, calc(-50% - -35px));
 }
 
 .center-text {
@@ -66,8 +69,12 @@ h1, h2, h3 {
   width: max-content;
   border-radius: 35px;
   padding: 40px 60px;
-  border: 5px solid #81b29a;
+  border: 5px solid #308edb;
   background-color: #fcfbf8;
+}
+
+.transparent-white-background {
+  background-color: #d5fafd31;
 }
 
 /************** Images ***************/
@@ -119,17 +126,18 @@ form input.ng-valid {
 button {
   display: block;
   font-size: 1.2em;
-  background-color: #ecb45b;
+  background-color: #82e7f5;
+  border-radius: 0.3em;
   padding: 0.5em 1em;
   cursor: pointer;
 }
 
 button:hover, button:active {
-  background-color: #f2cc8f;
+  background-color: #b8f2fa;
 }
 
 button:disabled {
-  background-color: rgb(235, 206, 159);
+  background-color: #b8f2fa;
   cursor: initial;
 }
 
@@ -146,14 +154,13 @@ li {
 /*********** Chat styles ************/
 .chat {
   max-width: 1000px;
-  margin-right: 1em;
   position: relative;
 }
 
 .message-input {
   display: block;
   width: 100%;
-  background-color:#f0eccc;
+  background-color:#ecf9fa;
   font-size: 1.2em;
   padding: 0.2em 0.5em;
   resize: none;
@@ -184,8 +191,16 @@ li {
   margin-left: 0.8em;
 }
 
+#public-chat .chat {
+  max-width: 900px;
+}
+
 #public-chat .chat-window {
   height: 40vh;
+}
+
+#public-chat .message-input {
+  height: 2.5em;
 }
 
 /* Display to the right for the user */
@@ -207,12 +222,12 @@ li {
 }
 
 .chat-window .message p {
-  background-color: #deece8;
+  background-color: #95e4ee;
 }
 
 .chat-window .message.current-user p {
   color: #ffffff;
-  background-color: #6bb491;
+  background-color: #096dc0;
 }
 
 .chat-form {
@@ -220,8 +235,19 @@ li {
 }
 
 .message-send {
+  color: #ffffff;
+  background-color: #0e72c4;
   font-size: 1.2em;
   border-collapse: collapse;
+  border-radius: 0;
+}
+
+.message-send:hover, .message-send:active {
+  background-color: #308edb;
+}
+
+.message-send:disabled {
+  background-color: #7bbdf3;
 }
 
 .chat .errorMessage {

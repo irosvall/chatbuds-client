@@ -1,9 +1,9 @@
 #delete-account-confirmation {
   max-width: 400px;
   text-align: center;
-  border: #e05553 solid 3px;
+  border: #f05250 solid 3px;
   padding: 1em;
-  background-color: #fcf7ef;
+  background-color: #ffffff;
 }
 
 #delete-account-confirmation button {
@@ -14,5 +14,5 @@
 }
 
 #delete-account-button:hover, #delete-account-button:active {
-  background-color: #e05553;
+  background-color: #fa5552;
 }
