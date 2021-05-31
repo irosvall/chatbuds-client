@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms'
-import { AuthService } from '../../services/auth/auth.service'
+import { AuthService } from '../../../services/auth/auth.service'
 
-import { passwordEqualValidator } from '../../validators/password-equal.directive'
-import { alphanumericValidator } from '../../validators/alphanumeric.directive'
-import { emailValidator } from '../../validators/email.directive'
+import { passwordEqualValidator } from '../../../validators/password-equal.directive'
+import { alphanumericValidator } from '../../../validators/alphanumeric.directive'
+import { emailValidator } from '../../../validators/email.directive'
 import { AlertService } from 'src/app/services/alert/alert.service'
 import { Router } from '@angular/router'
 
