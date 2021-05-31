@@ -4,8 +4,5 @@
     <button (click)="onAcceptFriendRequest(alert)">Accept</button>
     <button (click)="onDeclineFriendRequest(alert)">Decline</button>
   </div>
-  <button class="close" 
-          *ngIf="alert.type !== 'friend-request'" 
-          (click)="removeAlert(alert)">&times;
-  </button>
+  <button class="close" (click)="removeAlert(alert)">&times;</button>
 </div>
