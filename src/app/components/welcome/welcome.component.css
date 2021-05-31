@@ -1,0 +1,15 @@
+#welcome-container {
+  max-width: 1000px;
+  background-color: #f9feff;
+  padding: 0.2em 1em;
+  border-radius: 15px;
+  margin-top: 2em;
+}
+ 
+h1 {
+  margin-bottom: 2em;
+}
+ 
+p {
+  margin: 2em 0;
+}
