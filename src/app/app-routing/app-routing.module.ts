@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [AnonymousGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
-  { path: 'randomchat', component: RandomChatComponent, canActivate: [AuthGuard] },
+  { path: 'findchat', component: RandomChatComponent, canActivate: [AuthGuard] },
   { path: 'chat/:id', component: PrivateChatComponent, canActivate: [AuthGuard] },
   { path: 'delete-account', component: DeleteAccountComponent, canActivate: [AuthGuard] },
   { path: '404', component: PageNotFoundComponent },
