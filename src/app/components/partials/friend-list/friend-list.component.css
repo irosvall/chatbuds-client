@@ -5,7 +5,13 @@ h2 {
   padding: 0.5em 0;
 }
 
+button {
+  margin: 2em auto 2em auto;
+}
+
 #friend-list {
+  display: flex;
+  flex-direction: column;
   background-color: #57c4df;
   height: 100%;
 }
@@ -13,6 +19,20 @@ h2 {
 #friend-list ul {
   margin: 0;
   padding: 0;
+  max-height: 560px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #f5feff #bfeffc;
+}
+
+#friend-list ul::-webkit-scrollbar {
+  width: 6px;
+  background-color: #bfeffc;
+}
+
+#friend-list ul::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #f5feff;
 }
 
 .friend-in-list {

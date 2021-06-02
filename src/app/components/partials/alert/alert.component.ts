@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
-import { Alert, FriendRequestAlert } from 'src/app/models/alert'
+import { Alert, AlertType, FriendRequestAlert } from 'src/app/models/alert'
 import { User } from 'src/app/models/user'
 import { AlertService } from 'src/app/services/alert/alert.service'
 import { SocketioService } from 'src/app/services/socketio/socketio.service'
@@ -27,7 +27,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Subscribe to alert notifications.
     this.alertSubscription = this.alertService.onAlert()
-      .subscribe(alert => this.alerts.push(alert))
+      .subscribe((alert: Alert) => this.onAlert(alert))
 
     // Listen to friend requests.
     this.newFriendSubscription = this.socketService.onNewFriend()
@@ -41,6 +41,20 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.alertSubscription?.unsubscribe()
     this.newFriendSubscription?.unsubscribe()
     this.friendRequestSubscription?.unsubscribe()
+  }
+
+  /**
+   * Adds alert to display if the previous alert message wasn't exactly the same.
+   */
+  onAlert(alert: Alert) {
+    if (alert.message !== this.alerts[this.alerts.length - 1]?.message) {
+      this.alerts.push(alert)
+
+      // Make the alert dissapear after 3 seconds if it isn't a friend request.
+      if (alert.type !== AlertType.FriendRequest) {
+        setTimeout(() => this.removeAlert(alert), 3000)
+      }
+    }
   }
 
   /**
