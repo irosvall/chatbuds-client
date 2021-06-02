@@ -42,7 +42,7 @@ h1, h2, h3 {
 
 .absolute-center {
   position: absolute;
-  width: max-content;
+  max-width: max-content;
   top: calc(50% - 88.06px);
   left:0;
   right:0;
