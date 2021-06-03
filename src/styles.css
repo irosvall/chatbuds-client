@@ -146,6 +146,14 @@ a {
   text-decoration: none;
 }
 
+a:link, a:visited {
+  color: #0065b8;
+}
+
+a:hover, a:active {
+  border-bottom: 1px solid #0065b8;
+}
+
 /*********** List styles ************/
 li {
   list-style: none;
